@@ -4,11 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title>Accer High School</title>
+    <title>Dashboard &mdash; STMIK IDS</title>
 
     <!-- CSS Libraries -->
     <link href="../main.css" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
 
     </head>
 
@@ -19,4 +18,9 @@
         require_once '_header.php';
         ?>
         <!-- Main Content -->
-        <div class="main-content">
+        <div class="main-content"></div>
+        <!-- End Main Content -->
+        </div>
+    </div>
+    </body>
+</html>
