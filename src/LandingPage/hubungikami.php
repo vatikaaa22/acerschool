@@ -3,8 +3,10 @@ require_once '../layout/_top.php';
 ?>
 
 <div class="py-20 grid gap-10">
-    <span class="bg-white w-full py-5">
-        <h1 class="text-center text-4xl font-bold">Hubungi Kami</h1>
+    <span class="w-full h-48 bg-black flex items-center justify-center" style="background-image: url(https://images.unsplash.com/20/cambridge.JPG?q=80&w=2047&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D); background-position: center;">
+        <div class="bg-black w-full h-[100%] opacity-50 flex items-center justify-center">
+            <h1 class="text-center text-4xl font-bold text-white">Hubungi Kami</h1>
+        </div>
     </span>
 
 
@@ -67,7 +69,7 @@ require_once '../layout/_top.php';
                         </label>
                     </span>
 
-                    <label class="input input-bordered gap-2 bg-white h-[10rem]">
+                    <label class="input input-bordered gap-2 bg-white">
                         <textarea class="grow bg-white" placeholder="Pesan" name="message" id="message"></textarea>
                     </label>
 
