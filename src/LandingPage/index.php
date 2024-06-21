@@ -91,5 +91,5 @@ require_once '../layout/_top.php';
         </div>
 
 <?php
-require_once '../layout/_bottom.php';
+    require_once '../layout/_bottom.php';
 ?>

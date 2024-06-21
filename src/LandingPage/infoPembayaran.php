@@ -3,8 +3,6 @@
 ?>
 
 
-
-
 <?php
     require_once '../layout/_bottom.php';
 ?>

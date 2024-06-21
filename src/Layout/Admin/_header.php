@@ -1,34 +1,85 @@
-<div>
-    <div class="navbar bg-base-100">
-        <div class="navbar-start">
-            <div class="dropdown">
-            <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+        <?php
+            $currentPath = $_SERVER['PHP_SELF'];
+
+            function isActive($path) {
+                global $currentPath;
+                    return strpos($currentPath, $path) !== false ? 'bg-black text-white' : 'bg-gray-300 text-black';
+            }
+        ?>
+
+        <!-- Navbar -->
+            <div class="navbar bg-white shadow-md mx-10 rounded-box max-w-[96vw] fixed top-5 border">
+                <div class="flex-none lg:hidden">
+                    <label for="my-drawer" class="btn btn-square btn-ghost drawer-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-5 h-5 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                    </label>
+                </div>
+                <div class="flex-1">
+                    <a class="btn btn-ghost text-xl text-black font-bold">Admin Dashboard</a>
+                </div>
+                <div class="flex-none">
+                    <div class="dropdown dropdown-end">
+                        <label tabindex="0" class="btn btn-ghost btn-circle avatar">
+                            <div class="w-10 rounded-full">
+                                <img src="https://i.pinimg.com/564x/a0/a8/46/a0a846db2c036d3a8fcf739bb5707e43.jpg" />
+                            </div>
+                        </label>
+                        <ul tabindex="0" class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
+                            <li><a href="#">Profile</a></li>
+                            <li><a onclick="document.getElementById('logout_modal').showModal()">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
+            <!-- end Navbar -->
+
+            <!-- Sidebar -->
+            <div class="grid fixed left-10 top-28 rounded-box text-black font-bold border shadow-lg bg-white">
+                        <ul class="menu p-4 overflow-y-auto w-60 grid gap-2">
+                            <li>
+                                <a href="../Admin/index.php" class="btn border-none hover:text-white <?php echo isActive('Admin/index.php'); ?>">
+                                    <i class='bx bx-home'></i>
+                                    Dashboard
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../Admin/information.php" class="btn border-none hover:text-white <?php echo isActive('Admin/information.php'); ?>">
+                                    <i class='bx bx-info-circle'></i>
+                                    Information
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="btn border-none hover:text-white <?php echo isActive('#'); ?>">Products</a>
+                            </li>
+                            <li>
+                                <a href="../Admin/contact.php" class="btn border-none hover:text-white <?php echo isActive('Admin/contact.php'); ?>">
+                                    <i class='bx bx-phone'></i>
+                                    Contact
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../Admin/profile.php" class="btn border-none hover:text-white <?php echo isActive('Admin/profile.php'); ?>">
+                                    <i class='bx bx-user'></i>
+                                    Profile
+                                </a>
+                            </li>
+                        </ul>
             </div>
-            <a class="btn btn-ghost text-xl" href="">Beranda</a>
-        </div>
-        <div class="navbar-center hidden lg:flex text-white">
-            <ul class="menu menu-horizontal px-1">
-            <li><a href="../LandingPage/index.php">Beranda</a></li>
-            <!-- <li>
-                <details>
-                <summary>Parent</summary>
-                <ul class="p-2">
-                    <li><a>Submenu 1</a></li>
-                    <li><a>Submenu 2</a></li>
-                </ul>
-                </details>
-            </li> -->
-            <li><a href="../LandingPage/tentangSekolah.php">Tentang Sekolah</a></li>
-            <li><a href="../LandingPage/peraturanSekolah.php">Peraturan Sekolah</a></li>
-            <li><a href="../LandingPage/peraturanSekolah.php">Fasilitas & Seragam</a></li>
-            <li><a href="../LandingPage/berita.php">Berita</a></li>
-            <li><a href="../LandingPage/infoPembayaran.php">Info Pembayaran</a></li>
-            <li><a href="../LandingPage/hubungiKami.php">Hubungi Kami</a></li>
-            </ul>
-        </div>
-        <div class="navbar-end">
-            <a class="btn text-white" href="../Admin/login.php">Login</a>
-        </div>
-    </div>
+
+
+            <!-- Logout Confirmation Modal -->
+            <dialog id="logout_modal" class="modal">
+                <div class="modal-box">
+                    <h3 class="font-bold text-lg">Confirm Logout</h3>
+                    <p class="py-4">Anda yakin untuk keluar?</p>
+                    <div class="modal-action">
+                        <form method="dialog">
+                            <button class="btn btn-outline mr-2">Cancel</button>
+                            <a href="logout.php" class="btn btn-error">Logout</a>
+                        </form>
+                    </div>
+                </div>
+                <form method="dialog" class="modal-backdrop">
+                    <button>close</button>
+                </form>
+            </dialog>
