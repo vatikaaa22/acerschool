@@ -13,13 +13,13 @@
         <!-- END ADD INFORMATION -->
 
         <!-- SEARCH -->
-        <label class="input input-bordered flex items-center gap-2 bg-white me-16 shadow-md text-black">
+        <label class="input input-bordered flex items-center gap-2 bg-white xl:me-16 me:14 shadow-md text-black">
             <input type="text" class="grow" placeholder="Search" />
             <i class="bx bx-search"></i>
         </label>
         <!-- END SEARCH -->
     </span>
-    <div class="overflow-x-scroll w-[95rem] border rounded-box shadow-md ">
+    <div class="overflow-x-scroll max-w-[95rem] border rounded-box shadow-md me-10">
         <table class="table">
             <!-- head -->
             <thead class="text-black text-lg">
@@ -29,6 +29,7 @@
                             <input type="checkbox" class="checkbox" />
                         </label>
                     </th>
+                    <th>No</th>
                     <th>Information Title</th>
                     <th>Content</th>
                     <th class="w-40">Image</th>
@@ -55,23 +56,27 @@
                                 <input type="checkbox" class="checkbox" />
                             </label>
                         </th>
+                        <th>
+                            <span class="text-sm"><?php echo $no ?></span>
+                        </th>
                         <td>
                                 <div>
                                     <div class="font-bold"><?php echo $data['title'] ?></div>
                                     <div class="text-sm opacity-50">United States</div>
                                 </div>
                             </div>
-                        <td class="relative">
+                        <td>
                             <p class="text-sm">
                                 <?php echo $data["description"]?>
                             </p>
                         </td>
                         <td><img src="./uploads/<?php echo $data["image"] ?>"></td>
-                        <td class="text-center"><?php echo $data["information_date"] ?></td>
+                        <td class="text-center text-nowrap"><?php echo $data["information_date"] ?></td>
                         <th>
                             <span class="flex items-center justify-center gap-1">
-                                <button class="btn btn-sm bg-black text-white border-none text-lg" onclick="document.getElementById('update_modal').showModal()"><i class="bx bx-edit"></i></button>
-                                <button class="btn btn-sm bg-red-500 text-white border-none text-lg"><i class="bx bx-trash"></i></button>
+                                <button class="btn btn-sm bg-black text-white border-none text-lg" onclick="openUpdateModal(<?php echo $data['information_id']; ?>)"><i class="bx bx-edit"></i></button>    
+                                <!-- <button class="btn btn-sm bg-black text-white border-none text-lg" onclick="document.getElementById('update_modal').showModal()"><i class="bx bx-edit"></i></button> -->
+                                <a class="btn btn-sm bg-red-500 text-white border-none text-lg" href="./informationCRUD/delete.php?information_id=<?php echo $data['information_id']?>" ><i class="bx bx-trash"></i></a>
                             </span> 
                         </th>
                     </tr>
@@ -86,7 +91,7 @@
 
     <!-- MODAL ADD -->
     <dialog id="add_modal" class="modal">
-            <form action="./contactCRUD/create.php" class="mb-10 border w-[40rem] shadow-md py-5 px-10 mt-4 rounded-box bg-gray-100 modal-box text-black" enctype="multipart/form-data" method="POST">
+            <form action="./informationCRUD/create.php" class="mb-10 border w-[40rem] shadow-md py-5 px-10 mt-4 rounded-box bg-gray-100 modal-box text-black" enctype="multipart/form-data" method="POST">
                     <h1 class="text-2xl font-bold text-black">Add information</h1>
         
                     <span class="grid gap-2 mt-5">
@@ -113,7 +118,7 @@
 
     <!-- MODAL UPDATE -->
     <dialog id="update_modal" class="modal">
-            <form action="" class="mb-10 border w-[40rem] shadow-md py-5 px-10 mt-4 rounded-box bg-gray-100 modal-box text-black" enctype="multipart/form-data">
+            <form id="updateForm" class="mb-10 border w-[40rem] shadow-md py-5 px-10 mt-4 rounded-box bg-gray-100 modal-box text-black" enctype="multipart/form-data" method="POST">
                     <h1 class="text-2xl font-bold text-black">Update information</h1>
         
                     <span class="grid gap-2 mt-5">
@@ -140,6 +145,39 @@
 
 </div>
 
+<script>
+    function openUpdateModal(informationId) {
+        const modal = document.getElementById('update_modal');
+        const form = document.getElementById('updateForm');
+        const titleInput = document.getElementById('updateTitle');
+        const contentInput = document.getElementById('updateContent');
+        
+        // Set action form dengan information_id yang benar
+        form.action = `./informationCRUD/update.php?information_id=${informationId}`;
+        
+        // Ambil data menggunakan AJAX
+
+        fetch(`./informationCRUD/edit.php?information_id=${informationId}`)
+            // .then(response => response.json())
+            .then(data => {
+                if(data.error) {
+                    console.error(data.error);
+                    return;
+                }
+                
+                // Isi form dengan data yang diterima
+                titleInput.value = data?.title;
+                contentInput.value = data?.description;
+                
+                // Buka modal
+                modal.showModal();
+            })
+            .catch(error => console.error('Error:', error));
+    }
+</script>
+
 <?php
     include '../Layout/Admin/_bottom.php';
 ?>
+
+

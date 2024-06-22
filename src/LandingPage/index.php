@@ -27,19 +27,17 @@ require_once '../layout/_top.php';
             while($data = mysqli_fetch_array($query)){
         ?>
 
-            <div class="flex items-center gap-5 max-w-lg">
-                <img src="../Admin/uploads/<?php echo $data["image"] ?>" class="rounded-lg shadow-2xl" />
+            <div class="flex items-start gap-5 max-w-lg flex-col">
+                <span style="background-image: url(../Admin/uploads/<?php echo $data["image"] ?>); background-position:top;" class="rounded-lg shadow-2xl w-[100%] h-[20rem]" ></span>
                 <div>
                     <h1 class="text-3xl font-bold"><?php echo $data["title"] ?></h1>
-                    <p class="py-6"><?php echo $datap["description"] ?></p>
-                    <button class="btn text-white font-bold">Selengkapnya !</button>
+                    <p class="py-6 text-justify"><?php echo $data["description"] ?></p>
+                    <button class="btn text-white font-bold">Selengkapnya !</button>    
                 </div>
+            </div>
         <?php
             $no++;
             }
-            echo "</div>";
-            echo "</div>";
-
         ?>
 
         </div>
