@@ -7,22 +7,24 @@
     <div class="grid items-center ps-[20rem] pt-[7rem]">
         <div role="tablist" class="tabs tabs-bordered">
             <!-- phone -->
-            <input type="radio" name="my_tabs_1" role="tab" class="tab" aria-label="Number" />
+            <input type="radio" name="my_tabs_1" role="tab" class="tab" aria-label="Number" checked />
             <div role="tabpanel" class="tab-content p-5">
 
                 <span class="flex items-center justify-between mb-5">
                     <!-- ADD PHONE -->
                     <div class="flex gap-2 items-center justify-center">
                         <h1 class="text-2xl font-bold">Number</h1>
-                        <button class="btn btn-sm text-white mt-1"  onclick="document.getElementById('number_add_modal').showModal()"><i class="bx bx-plus-circle"></i></button>
+                        <button class="btn btn-sm text-white mt-1" onclick="document.getElementById('number_add_modal').showModal()"><i class="bx bx-plus-circle"></i></button>
                     </div>
                     <!-- END ADD PHONE -->
 
                     <!-- SEARCH -->
-                    <label class="input input-bordered flex items-center gap-2 bg-white me-10 shadow-md text-black">
-                        <input type="text" class="grow" placeholder="Search" />
-                        <i class="bx bx-search"></i>
-                    </label>
+                    <form action="" method="GET" class="flex items-center">
+                        <label class="input input-bordered flex items-center gap-2 bg-white me-10 shadow-md text-black">
+                            <input type="text" name="search" class="grow" placeholder="Search by username or number" value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>" />
+                            <button type="submit"><i class="bx bx-search"></i></button>
+                        </label>
+                    </form>
                     <!-- END SEARCH -->
                 </span>
 
@@ -39,22 +41,47 @@
                             </tr>
                         </thead>
                         <tbody class="text-black">
+                        <?php
+                            include '../../helper/connection.php';
 
+                            $search = isset($_GET['search']) ? $_GET['search'] : '';
+        
+                            $sql = "SELECT * FROM phones";
+
+                            // Append search conditions to the SQL query if a search term is provided
+                            if (!empty($search)) {
+                                $sql .= " WHERE (username LIKE ? OR number LIKE ?)";
+                            } 
+        
+                            $stmt = $connection->prepare($sql);
+        
+                            if (!empty($search)) {
+                                $searchParam = "%$search%";
+                                $stmt->bind_param("ss", $searchParam, $searchParam);
+                            }
+        
+                            $stmt->execute();
+                            $result = $stmt->get_result();
+        
+                            $no = 1;
+        
+                            while ($data = $result->fetch_assoc()) {
+                        ?>
                                 <tr>
                                     <th>
                                         <span class="text-sm">
-                                            1
+                                        <?php echo $no ?>
                                         </span>
                                     </th>
                                     <td>
                                             <div>
-                                                <div class="text-sm opacity-50 font-semibold">Humas</div>
+                                                <div class="text-sm font-semibold"><?php echo $data["username"]?></div>
                                             </div>
                                         </div>
-                                    <td>0895800715580</td>
+                                    <td><?php echo $data['number']?></td>
                                     <td class="flex gap-1 items-center">
                                         <label>
-                                            <input type="checkbox" class="checkbox" />
+                                            <input type="checkbox" class="checkbox" <?php echo $data['default'] == 1 ? 'checked' : ''; ?>  />
                                         </label>
                                         <p class="mb-2">
                                             Yes
@@ -62,19 +89,25 @@
                                     </td>
                                     <th>
                                         <span class="flex items-center justify-center gap-1">
-                                            <button class="btn btn-sm bg-black text-white border-none text-lg" onclick="document.getElementById('update_modal').showModal()"><i class="bx bx-edit"></i></button>
-                                            <a class="btn btn-sm bg-red-500 text-white border-none text-lg" href="./informationCRUD/delete.php?information_id=<?php echo $data['information_id']?>" ><i class="bx bx-trash"></i></a>
+                                            <button class="btn btn-sm bg-black text-white border-none text-lg" onclick="openUpdateModal(<?php echo $data['default']; ?>, <?php echo $data['phone_id']; ?>)"><i class="bx bx-edit"></i></button>
+                                            <a class="btn btn-sm bg-red-500 text-white border-none text-lg" href="./contactCRUD/number/delete.php?phone_id=<?php echo $data['phone_id']?>" ><i class="bx bx-trash"></i></a>
                                         </span> 
                                     </th>
                                 </tr>
-                        </tbody>
-                    </table>
+                <?php
+                            $no++;
+                            }
+                            $stmt->close();
+
+                        echo "</tbody>";
+                    echo "</table>";
+                ?>
                 </div>
                 
             </div>
             
             <!-- email -->
-            <input type="radio" name="my_tabs_1" role="tab" class="tab" aria-label="Email" checked />
+            <input type="radio" name="my_tabs_1" role="tab" class="tab" aria-label="Email" />
                 <div role="tabpanel" class="tab-content p-5">
 
                     <span class="flex items-center justify-between mb-5">
@@ -121,7 +154,7 @@
                                         </td>
                                         <th>
                                             <span class="flex items-center justify-center gap-1">
-                                                <button class="btn btn-sm bg-black text-white border-none text-lg" onclick="document.getElementById('address_add_modal').showModal()"><i class="bx bx-edit"></i></button>
+                                                <button class="btn btn-sm bg-black text-white border-none text-lg" onclick="openUpdateModal(<?php echo $data['phone_id']; ?>)"><i class="bx bx-edit"></i></button>
                                                 <a class="btn btn-sm bg-red-500 text-white border-none text-lg" href="./informationCRUD/delete.php?information_id=<?php echo $data['information_id']?>" ><i class="bx bx-trash"></i></a>
                                             </span> 
                                         </th>
@@ -195,11 +228,11 @@
 
         <!-- MODAL NUMBER -->
         <dialog id="number_add_modal" class="modal">
-            <form action="./informationCRUD/create.php" class="mb-10 border w-[40rem] shadow-md py-5 px-10 mt-4 rounded-box bg-gray-100 modal-box text-black" enctype="multipart/form-data" method="POST">
+            <form action="./contactCRUD/number/create.php" class="mb-10 border w-[40rem] shadow-md py-5 px-10 mt-4 rounded-box bg-gray-100 modal-box text-black" enctype="multipart/form-data" method="POST">
                     <h1 class="text-2xl font-bold text-black">Add Number</h1>
         
                     <span class="grid gap-2 mt-5">
-                            <select class="select select-bordered w-full bg-white">
+                            <select class="select select-bordered w-full bg-white" name="username">
                                 <option disabled selected>Pilih Role</option>
                                 <option>Humas</option>
                                 <option>Pengajaran</option>
@@ -208,10 +241,9 @@
                                 <label for="number" class="text-lg font-semibold text-black">Number</label>
                                 <input type="number" name="number" id="number" class="input input-bordered bg-white" placeholder="Enter number" required />
                             </div>
-                        
                     </span>
                     <div class="flex justify-end mt-4">
-                        <button class="btn text-white w-36" type="sumbit">Save</button>
+                        <button class="btn text-white w-36 border-black" type="sumbit">Save</button>
                     </div>
             </form>
 
@@ -260,6 +292,41 @@
             </form>
         </dialog>
         <!-- END MODAL EMAIL -->
+
+
+        <!-- UPDATE DEFAULT NUMBER -->
+        <dialog id="update_number_modal" class="modal text-black">
+            <div class="modal-box bg-white">
+                <h3 class="font-bold text-lg">Edit Default?</h3>
+                <p class="py-4">Apakah anda yakin untuk mengubahnya ?</p>
+                <div class="modal-action">
+                    <form method="dialog">
+                        <button class="btn btn-outline mr-2 text-black">Cancel</button>
+                        <button onclick="updateDefault()" class="btn btn-info text-white">Yes</button>
+                    </form>
+                </div>
+            </div>
+            <form method="dialog" class="modal-backdrop">
+                <button>close</button>
+            </form>
+        </dialog>
+
+
+
+        <script>
+            function openUpdateModal(defaultId, id) {
+                window.currentDefaultId = defaultId;
+                window.currentId = id;
+                document.getElementById('update_number_modal').showModal();
+            }
+
+            function updateDefault() {
+                
+                if (window.currentId) {
+                    window.location.href = `./contactCRUD/number/update.php?default=${window.currentDefaultId}&id=${window.currentId}`;
+                }
+            }
+        </script>
 
 
 <?php
