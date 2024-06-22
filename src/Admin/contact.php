@@ -97,7 +97,6 @@
                 <?php
                             $no++;
                             }
-                            $stmt->close();
 
                         echo "</tbody>";
                     echo "</table>";
@@ -117,13 +116,6 @@
                             <button class="btn btn-sm text-white mt-1" onclick="document.getElementById('email_add_modal').showModal()"><i class="bx bx-plus-circle"></i></button>
                         </div>
                         <!-- END ADD EMAIL -->
-
-                        <!-- SEARCH -->
-                        <label class="input input-bordered flex items-center gap-2 bg-white me-10 shadow-md text-black">
-                            <input type="text" class="grow" placeholder="Search" />
-                            <i class="bx bx-search"></i>
-                        </label>
-                        <!-- END SEARCH -->
                     </span>
 
                     <div class="overflow-x-scroll border rounded-box shadow-md me-10">
@@ -138,15 +130,24 @@
                                 </tr>
                             </thead>
                             <tbody class="text-black">
-        
+                            <?php
+                                include '../../helper/connection.php';
+
+                                $sql = "SELECT * FROM emails";
+                                $result = $connection->query($sql);
+
+                                $no = 1;
+
+                                while ($data = $result->fetch_assoc()) {
+                            ?>
                                     <tr>
                                         <th>
-                                            <span class="text-sm">1</span>
+                                            <span class="text-sm"><?php echo $no ?></span>
                                         </th>
-                                        <td></td>
+                                        <td><?php echo $data["email"] ?></td>
                                         <td class="flex gap-1 items-center">
                                             <label>
-                                                <input type="checkbox" class="checkbox" />
+                                                <input type="checkbox" class="checkbox" <?php echo $data["default"] == 0 ? "" : "active"; ?>/>
                                             </label>
                                             <p class="mb-2">
                                                 Yes
@@ -154,13 +155,18 @@
                                         </td>
                                         <th>
                                             <span class="flex items-center justify-center gap-1">
-                                                <button class="btn btn-sm bg-black text-white border-none text-lg" onclick="openUpdateModal(<?php echo $data['phone_id']; ?>)"><i class="bx bx-edit"></i></button>
-                                                <a class="btn btn-sm bg-red-500 text-white border-none text-lg" href="./informationCRUD/delete.php?information_id=<?php echo $data['information_id']?>" ><i class="bx bx-trash"></i></a>
+                                                <button class="btn btn-sm bg-black text-white border-none text-lg" ><i class="bx bx-edit"></i></button>
+                                                <a class="btn btn-sm bg-red-500 text-white border-none text-lg" href="./contactCRUD/email/delete.php?email_id=<?php echo $data['email_id']?>" ><i class="bx bx-trash"></i></a>
                                             </span> 
                                         </th>
                                     </tr>
-                            </tbody>
-                        </table>
+                <?php
+                            $no++;
+                            }
+
+                        echo "</tbody>";
+                    echo "</table>";
+                ?>
                     </div>
                     
                 </div>
@@ -177,12 +183,6 @@
                         </div>
                         <!-- END ADD ADDRESS -->
 
-                        <!-- SEARCH -->
-                        <label class="input input-bordered flex items-center gap-2 bg-white me-10 shadow-md text-black">
-                            <input type="text" class="grow" placeholder="Search" />
-                            <i class="bx bx-search"></i>
-                        </label>
-                        <!-- END SEARCH -->
                     </span>
                     
                     <div class="overflow-x-scroll border rounded-box shadow-md me-10">
@@ -197,15 +197,25 @@
                                 </tr>
                             </thead>
                             <tbody class="text-black">
+                            <?php
+                                include '../../helper/connection.php';
+
+                                $sql = "SELECT * FROM address";
+                                $result = $connection->query($sql);
+
+                                $no = 1;
+
+                                while ($data = $result->fetch_assoc()) {
+                            ?>
         
                                     <tr>
                                         <th>
-                                            <span class="text-sm">1</span>
+                                            <span class="text-sm"><?php echo $no ?></span>
                                         </th>
-                                        <td></td>
+                                        <td><?php echo $data['address_name'] ?></td>
                                         <td class="flex gap-1 items-center">
                                             <label>
-                                                <input type="checkbox" class="checkbox" />
+                                                <input type="checkbox" class="checkbox"  <?php echo $data["default"] == 0 ? "" : "active"; ?> />
                                             </label>
                                             <p class="mb-2">
                                                 Yes
@@ -214,12 +224,19 @@
                                         <th>
                                             <span class="flex items-center justify-center gap-1">
                                                 <button class="btn btn-sm bg-black text-white border-none text-lg" onclick="document.getElementById('update_modal').showModal()"><i class="bx bx-edit"></i></button>
-                                                <a class="btn btn-sm bg-red-500 text-white border-none text-lg" href="./informationCRUD/delete.php?information_id=<?php echo $data['information_id']?>" ><i class="bx bx-trash"></i></a>
+                                                <a class="btn btn-sm bg-red-500 text-white border-none text-lg" href="./contactCRUD/address/delete.php?address_id=<?php echo $data['address_id']?>" ><i class="bx bx-trash"></i></a>
                                             </span> 
                                         </th>
                                     </tr>
-                            </tbody>
-                        </table>
+
+                <?php
+                            $no++;
+                            }
+                            $stmt->close();
+
+                        echo "</tbody>";
+                    echo "</table>";
+                ?>
                     </div>
                 
                 </div>
@@ -255,7 +272,7 @@
 
         <!-- MODAL EMAIL -->
         <dialog id="email_add_modal" class="modal">
-            <form action="./informationCRUD/create.php" class="mb-10 border w-[40rem] shadow-md py-5 px-10 mt-4 rounded-box bg-gray-100 modal-box text-black" enctype="multipart/form-data" method="POST">
+            <form action="./contactCRUD/email/create.php" class="mb-10 border w-[40rem] shadow-md py-5 px-10 mt-4 rounded-box bg-gray-100 modal-box text-black" method="POST">
                     <h1 class="text-2xl font-bold text-black">Add Email</h1>
         
                     <span class="flex flex-col mt-5">
@@ -273,14 +290,14 @@
         </dialog>
         <!-- END MODAL EMAIL -->
         
-        <!-- MODAL EMAIL -->
+        <!-- MODAL ADDRESS -->
         <dialog id="address_add_modal" class="modal">
-            <form action="./informationCRUD/create.php" class="mb-10 border w-[40rem] shadow-md py-5 px-10 mt-4 rounded-box bg-gray-100 modal-box text-black" enctype="multipart/form-data" method="POST">
+            <form action="./contactCRUD/address/create.php" class="mb-10 border w-[40rem] shadow-md py-5 px-10 mt-4 rounded-box bg-gray-100 modal-box text-black" method="POST">
                     <h1 class="text-2xl font-bold text-black">Add Address</h1>
         
                     <span class="flex flex-col mt-5">
                                 <label for="address" class="text-lg font-semibold text-black">Address</label>
-                                <input type="text" name="address" id="address" class="input input-bordered bg-white" placeholder="Enter address" required />
+                                <input type="text" name="address_name" id="address" class="input input-bordered bg-white" placeholder="Enter address" required />
                     </span>
                     <div class="flex justify-end mt-4">
                         <button class="btn text-white w-36" type="sumbit">Save</button>
@@ -291,7 +308,7 @@
                     <button>close</button>
             </form>
         </dialog>
-        <!-- END MODAL EMAIL -->
+        <!-- END MODAL ADDRESS -->
 
 
         <!-- UPDATE DEFAULT NUMBER -->

@@ -134,18 +134,53 @@
     <dialog id="update_modal" class="modal">
             <form id="updateForm" class="mb-10 border w-[40rem] shadow-md py-5 px-10 mt-4 rounded-box bg-gray-100 modal-box text-black" enctype="multipart/form-data" method="POST">
                     <h1 class="text-2xl font-bold text-black">Update information</h1>
+                    <?php
+                        include '../../helper/connection.php';
+
+                        $search = isset($_GET['informationId']) ? $_GET['informationId'] : '';
+
+                        $sql = "SELECT * FROM informations";
+
+                        // Append search conditions to the SQL query if a search term is provided
+                        if (!empty($search)) {
+                            $sql .= " WHERE information_id = ?";
+                        } 
+
+                        $stmt = $connection->prepare($sql);
+
+                        if (!empty($search)) {
+                            $searchParam = "%$search%";
+                            $stmt->bind_param("ss", $searchParam, $searchParam);
+                        }
+
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+
+                        $no = 1;
+
+                        while ($data = $result->fetch_assoc()) {
+                    ?>
         
                     <span class="grid gap-2 mt-5">
-                        <input type="file" class="file-input file-input-bordered file-input-sm w-full border bg-white" />
+                        <div class="h-40 w-full">
+                            <img src="./uploads/<?php echo $data['image'] ?>" class="h-full w-full object-cover" />
+                        </div>
+                        <input type="file" class="file-input file-input-bordered file-input-sm w-full border bg-white"  required/>
                             <div class="flex flex-col">
                                 <label for="title" class="text-lg font-semibold text-black">Information Title</label>
-                                <input type="text" name="title" id="title" class="input input-bordered bg-white" placeholder="Enter Information Title" />
+                                <input type="text" name="title" id="title" class="input input-bordered bg-white" placeholder="Enter Information Title" value="<?php echo $data['title']?>" />
                             </div>
                             <div class="flex flex-col">
                                 <label for="content" class="text-lg font-semibold text-black">Content</label>
-                                <textarea name="content" id="content" class="input input-bordered bg-white h-40 py-1" placeholder="Enter Content"></textarea>
+                                <textarea name="content" id="content" class="input input-bordered bg-white h-40 py-1" placeholder="Enter Content"><?php echo htmlspecialchars($data['description']); ?></textarea>
                             </div>
                     </span>
+                    
+                    <?php
+                        $no++;
+                        }
+                    ?>
+
                     <div class="flex justify-end mt-4">
                         <button class="btn text-white w-36">Save</button>
                     </div>
@@ -161,32 +196,8 @@
 
 <script>
     function openUpdateModal(informationId) {
-        const modal = document.getElementById('update_modal');
-        const form = document.getElementById('updateForm');
-        const titleInput = document.getElementById('updateTitle');
-        const contentInput = document.getElementById('updateContent');
-        
-        // Set action form dengan information_id yang benar
-        form.action = `./informationCRUD/update.php?information_id=${informationId}`;
-        
-        // Ambil data menggunakan AJAX
-
-        fetch(`./informationCRUD/edit.php?information_id=${informationId}`)
-            // .then(response => response.json())
-            .then(data => {
-                if(data.error) {
-                    console.error(data.error);
-                    return;
-                }
-                
-                // Isi form dengan data yang diterima
-                titleInput.value = data?.title;
-                contentInput.value = data?.description;
-                
-                // Buka modal
-                modal.showModal();
-            })
-            .catch(error => console.error('Error:', error));
+        window.informationId = informationId;
+        document.getElementById('update_modal').showModal();
     }
 </script>
 
