@@ -43,7 +43,7 @@
         </label>
         <!-- END SEARCH -->
     </span>
-    <div class="overflow-x-scroll max-w-[95rem] border rounded-box shadow-md me-10">
+    <div class="overflow-x-scroll max-w-[95rem] max-h-[48rem] border rounded-box shadow-md me-10">
         <table class="table">
             <!-- head -->
             <thead class="text-black text-lg">
@@ -89,7 +89,6 @@
                         <th>
                             <span class="flex items-center justify-center gap-1">
                                 <button class="btn btn-sm bg-black text-white border-none text-lg" onclick="openUpdateModal(<?php echo $data['information_id']; ?>)"><i class="bx bx-edit"></i></button>    
-                                <!-- <button class="btn btn-sm bg-black text-white border-none text-lg" onclick="document.getElementById('update_modal').showModal()"><i class="bx bx-edit"></i></button> -->
                                 <a class="btn btn-sm bg-red-500 text-white border-none text-lg" href="./informationCRUD/delete.php?information_id=<?php echo $data['information_id']?>" ><i class="bx bx-trash"></i></a>
                             </span> 
                         </th>
@@ -109,7 +108,7 @@
                     <h1 class="text-2xl font-bold text-black">Add information</h1>
         
                     <span class="grid gap-2 mt-5">
-                            <input type="file" name="image" class="file-input file-input-bordered file-input-sm w-full border bg-white"/>
+                            <input type="file" name="image" class="file-input file-input-bordered file-input-sm w-full border bg-white" required/>
                             <div class="flex flex-col">
                                 <label for="title" class="text-lg font-semibold text-black">Information Title</label>
                                 <input type="text" name="title" id="title" class="input input-bordered bg-white" placeholder="Enter Information Title" />
@@ -132,73 +131,35 @@
 
     <!-- MODAL UPDATE -->
     <dialog id="update_modal" class="modal">
-            <form id="updateForm" class="mb-10 border w-[40rem] shadow-md py-5 px-10 mt-4 rounded-box bg-gray-100 modal-box text-black" enctype="multipart/form-data" method="POST">
-                    <h1 class="text-2xl font-bold text-black">Update information</h1>
-                    <?php
-                        include '../../helper/connection.php';
-
-                        $search = isset($_GET['informationId']) ? $_GET['informationId'] : '';
-
-                        $sql = "SELECT * FROM informations";
-
-                        // Append search conditions to the SQL query if a search term is provided
-                        if (!empty($search)) {
-                            $sql .= " WHERE information_id = ?";
-                        } 
-
-                        $stmt = $connection->prepare($sql);
-
-                        if (!empty($search)) {
-                            $searchParam = "%$search%";
-                            $stmt->bind_param("ss", $searchParam, $searchParam);
-                        }
-
-                        $stmt->execute();
-                        $result = $stmt->get_result();
-
-                        $no = 1;
-
-                        while ($data = $result->fetch_assoc()) {
-                    ?>
-        
-                    <span class="grid gap-2 mt-5">
-                        <div class="h-40 w-full">
-                            <img src="./uploads/<?php echo $data['image'] ?>" class="h-full w-full object-cover" />
-                        </div>
-                        <input type="file" class="file-input file-input-bordered file-input-sm w-full border bg-white"  required/>
-                            <div class="flex flex-col">
-                                <label for="title" class="text-lg font-semibold text-black">Information Title</label>
-                                <input type="text" name="title" id="title" class="input input-bordered bg-white" placeholder="Enter Information Title" value="<?php echo $data['title']?>" />
-                            </div>
-                            <div class="flex flex-col">
-                                <label for="content" class="text-lg font-semibold text-black">Content</label>
-                                <textarea name="content" id="content" class="input input-bordered bg-white h-40 py-1" placeholder="Enter Content"><?php echo htmlspecialchars($data['description']); ?></textarea>
-                            </div>
-                    </span>
-                    
-                    <?php
-                        $no++;
-                        }
-                    ?>
-
-                    <div class="flex justify-end mt-4">
-                        <button class="btn text-white w-36">Save</button>
-                    </div>
-            </form>
-
-            <form method="dialog" class="modal-backdrop">
-                    <button>close</button>
-            </form>
+        <form id="updateForm" class="mb-10 border w-[40rem] shadow-md py-5 px-10 mt-4 rounded-box bg-gray-100 modal-box text-black" enctype="multipart/form-data" method="POST">
+            <h1 class="text-2xl font-bold text-black">Update information</h1>
+            <div id="formContent">
+                <!-- NANTI BERISI CONTENT -->
+            </div>
+            <div class="flex justify-end mt-4">
+                <button class="btn text-white w-36">Save</button>
+            </div>
+        </form>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
     </dialog>
     <!-- END MODAL UPDATE -->
 
 </div>
 
 <script>
-    function openUpdateModal(informationId) {
-        window.informationId = informationId;
-        document.getElementById('update_modal').showModal();
-    }
+function openUpdateModal(informationId) {
+    document.getElementById('update_modal').showModal();
+    
+    // Use AJAX to load the form content
+    fetch('./informationCRUD/edit.php?id=' + informationId)
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('formContent').innerHTML = data;
+        })
+        .catch(error => console.error('Error:', error));
+}
 </script>
 
 <?php

@@ -7,7 +7,7 @@
     <div class="grid items-center ps-[20rem] pt-[7rem]">
         <div role="tablist" class="tabs tabs-bordered">
             <!-- phone -->
-            <input type="radio" name="my_tabs_1" role="tab" class="tab" aria-label="Number" checked />
+            <input type="radio" name="my_tabs_1" role="tab" class="tab" aria-label="Number" onclick="initializeCheck(1)" id="tab1"/>
             <div role="tabpanel" class="tab-content p-5">
 
                 <span class="flex items-center justify-between mb-5">
@@ -106,7 +106,7 @@
             </div>
             
             <!-- email -->
-            <input type="radio" name="my_tabs_1" role="tab" class="tab" aria-label="Email" />
+            <input type="radio" name="my_tabs_1" role="tab" class="tab" aria-label="Email"  onclick="initializeCheck(2)" id="tab2"/>
                 <div role="tabpanel" class="tab-content p-5">
 
                     <span class="flex items-center justify-between mb-5">
@@ -172,7 +172,7 @@
                 </div>
                 
                 <!-- address -->
-                <input type="radio" name="my_tabs_1" role="tab" class="tab" aria-label="Address" />
+                <input type="radio" name="my_tabs_1" role="tab" class="tab" aria-label="Address"  onclick="initializeCheck(3)" id="tab3" />
                 <div role="tabpanel" class="tab-content p-5">
 
                     <span class="flex items-center justify-between mb-5">
@@ -343,6 +343,27 @@
                     window.location.href = `./contactCRUD/number/update.php?default=${window.currentDefaultId}&id=${window.currentId}`;
                 }
             }
+
+            function initializeCheck(id) {
+                localStorage.setItem('selectedTab', id);
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+                var tab1 = document.getElementById('tab1');
+                var tab2 = document.getElementById('tab2');
+                var tab3 = document.getElementById('tab3');
+
+                var selectedTab = localStorage.getItem('selectedTab');
+
+                if (selectedTab === null || selectedTab === '1') {
+                    tab1.checked = true;
+                } else if (selectedTab === '2') {
+                    tab2.checked = true;
+                } else {
+                    tab3.checked = true;
+                }
+            });
+
         </script>
 
 

@@ -4,10 +4,10 @@
 ?>
 
     <!-- Page content here -->
-    <div class="p-4">
-        <h1 class="text-2xl font-bold mb-4">Welcome to Admin Dashboard</h1>
-        Add your main content here
+    <div class="grid items-center ps-[20rem] pt-[7rem]">
+        <h1>TEST</h1>
     </div>
+
 
 
 <?php
