@@ -24,8 +24,8 @@
                                 <img src="https://i.pinimg.com/564x/a0/a8/46/a0a846db2c036d3a8fcf739bb5707e43.jpg" />
                             </div>
                         </label>
-                        <ul tabindex="0" class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
-                            <li><a href="#">Profile</a></li>
+                        <ul tabindex="0" class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-white rounded-box w-52 text-black">
+                            <li><a href="profile.php">Profile</a></li>
                             <li><a onclick="document.getElementById('logout_modal').showModal()">Logout</a></li>
                         </ul>
                     </div>
@@ -69,13 +69,13 @@
 
             <!-- Logout Confirmation Modal -->
             <dialog id="logout_modal" class="modal">
-                <div class="modal-box">
+                <div class="modal-box bg-white text-black">
                     <h3 class="font-bold text-lg">Confirm Logout</h3>
                     <p class="py-4">Anda yakin untuk keluar?</p>
                     <div class="modal-action">
                         <form method="dialog">
                             <button class="btn btn-outline mr-2">Cancel</button>
-                            <a href="logout.php" class="btn btn-error">Logout</a>
+                            <a href="logout.php" class="btn btn-error text-white">Logout</a>
                         </form>
                     </div>
                 </div>

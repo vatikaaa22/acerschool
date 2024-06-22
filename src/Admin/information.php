@@ -1,6 +1,30 @@
 <?php
+    include '../../helper/connection.php';
+    include '../../helper/auth.php';
     include '../Layout/Admin/_top.php';
 ?>
+
+
+<!-- ALERT -->
+<?php
+    if (isset($_SESSION['alert'])) {
+        $alertType = $_SESSION['alert']['type'];
+        $alertMessage = $_SESSION['alert']['message'];
+        ?>
+        <div role="alert" class="alert alert-<?php echo $alertType; ?>">
+            <?php if ($alertType === 'success'): ?>
+                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            <?php else: ?>
+                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            <?php endif; ?>
+            <span><?php echo $alertMessage; ?></span>
+        </div>
+        <?php
+        // Clear the alert from the session
+        unset($_SESSION['alert']);
+    }
+?>
+<!-- END ALERT -->
 
 <!-- Page content here -->
 <div class="grid items-center ps-[20rem] pt-[7rem]">
@@ -24,11 +48,6 @@
             <!-- head -->
             <thead class="text-black text-lg">
                 <tr>
-                    <th>
-                        <label>
-                            <input type="checkbox" class="checkbox" />
-                        </label>
-                    </th>
                     <th>No</th>
                     <th>Information Title</th>
                     <th>Content</th>
@@ -51,11 +70,6 @@
             ?>
                     <!-- row 1 -->
                     <tr>
-                        <th>
-                            <label>
-                                <input type="checkbox" class="checkbox" />
-                            </label>
-                        </th>
                         <th>
                             <span class="text-sm"><?php echo $no ?></span>
                         </th>

@@ -18,7 +18,8 @@
     <div id="app">
         <div class="main-wrapper main-wrapper-1">
         <?php
-        require_once '_header.php';
+            require_once '_header.php';
+            session_start();
         ?>
         <!-- Main Content -->
         <div class="main-content">
