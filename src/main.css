@@ -3482,6 +3482,26 @@ input.tab:checked + .tab-content,
   min-height: 100vh;
 }
 
+.min-h-\[40rem\] {
+  min-height: 40rem;
+}
+
+.min-h-\[10rem\] {
+  min-height: 10rem;
+}
+
+.min-h-\[20rem\] {
+  min-height: 20rem;
+}
+
+.min-h-\[5rem\] {
+  min-height: 5rem;
+}
+
+.min-h-\[50vh\] {
+  min-height: 50vh;
+}
+
 .w-1\/2 {
   width: 50%;
 }

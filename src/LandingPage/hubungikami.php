@@ -11,7 +11,7 @@ require_once '../layout/_top.php';
 
 
         <span class="flex items-center justify-center gap-5">
-            <div class="relative bg-gray-800 h-[15rem] w-[20rem] p-5 rounded-box grid" data-aos ="fade-in">
+            <div class="relative bg-gray-800 h-[15rem] w-[20rem] p-5 rounded-box grid" data-aos ="zoom-out">
                 <div class="py-2 px-3 rounded-full bg-gray-900 absolute -top-1 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
                     <i class="bx bx-map text-4xl"></i>
                 </div>
@@ -20,7 +20,7 @@ require_once '../layout/_top.php';
                 <p><span class="font-semibold">Kampus 2</span> : <br/> Jl. HM Sarbini No. 129 Kebumen</p>
             </div>
 
-            <div class="relative bg-gray-800 h-[15rem] w-[20rem] p-5 rounded-box grid" data-aos ="fade-in">
+            <div class="relative bg-gray-800 h-[15rem] w-[20rem] p-5 rounded-box grid" data-aos ="zoom-out">
                 <div class="py-2 px-3 rounded-full bg-gray-900 absolute -top-1 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
                     <i class="bx bx-phone text-4xl"></i>
                 </div>
@@ -31,7 +31,7 @@ require_once '../layout/_top.php';
                 <?php 
                     include "../../helper/connection.php";
 
-                    $sql = "SELECT * FROM phones WHERE `default` = 1 LIMIT 3";
+                    $sql = "SELECT * FROM phones WHERE `isDefault` = 1 LIMIT 3";
                     
                     $query = mysqli_query($connection, $sql);
                     
@@ -54,7 +54,7 @@ require_once '../layout/_top.php';
                 </span>
             </div>
 
-            <div class="relative bg-gray-800 h-[15rem] w-[20rem] p-5 rounded-box grid" data-aos ="fade-in">
+            <div class="relative bg-gray-800 h-[15rem] w-[20rem] p-5 rounded-box grid" data-aos ="zoom-out">
                 <div class="py-2 px-3 rounded-full bg-gray-900 absolute -top-1 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
                     <i class="bx bx-envelope text-4xl"></i>
                 </div>
@@ -69,7 +69,7 @@ require_once '../layout/_top.php';
         <span class="mt-5">
             <h1 class="font-bold  text-3xl text-center">&mdash; Form Kontak &mdash; </h1>
             <span class="flex items-center justify-center">
-                <form action="" class="w-3/4 py-10 items-center justify-center ">
+                <form action="" class="w-3/4 py-10 items-center justify-center " data-aos ="zoom-out">
                     <div class="mx-auto w-1/2">
         
                         <div class="grid gap-5">

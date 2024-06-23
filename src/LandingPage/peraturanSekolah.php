@@ -12,10 +12,10 @@ require_once '../layout/_top.php';
 
 <div class="min-h-screen flex items-center justify-start flex-col">
     <span class="grid py-5">
-        <h1 class="font-bold text-3xl ms-4 mb-5">Mengapa memilih sekolah Accer High School</h1>
+        <h1 class="font-bold text-3xl ms-4 mb-5" >Mengapa memilih sekolah Accer High School</h1>
         <div class="hero-content flex-row-reverse text-white">
-            <img src="https://images.unsplash.com/photo-1527891751199-7225231a68dd?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="max-w-sm rounded-lg shadow-2xl order-1" />
-            <div class="bg-gray-800 grid gap-5 px-5 rounded-box opacity-80 py-5" >
+            <img src="https://images.unsplash.com/photo-1527891751199-7225231a68dd?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="max-w-sm rounded-lg shadow-2xl order-1" data-aos="zoom-out"/>
+            <div class="bg-gray-800 grid gap-5 px-5 rounded-box opacity-80 py-5" data-aos="zoom-out" >
                 <span class="flex gap-3 items-center">
                     <i class="bx bx-news text-5xl"></i>
                     <div class="grid">
@@ -41,11 +41,11 @@ require_once '../layout/_top.php';
         </div>
     </span>
     
-    <h1 class="font-bold  text-3xl text-center mb-10">&mdash; Peraturan Sekolah &mdash; </h1>
+    <h1 class="font-bold  text-3xl text-center mb-10" data-aos="zoom-in">&mdash; Peraturan Sekolah &mdash; </h1>
     
     <!-- PERATURAN -->
     <span class="flex gap-5 justify-center items-center mb-5">
-        <div class="card w-96 shadow-xl bg-gray-800 h-[40rem]">
+        <div class="card w-96 shadow-xl bg-gray-800 h-[40rem]" data-aos="zoom-out">
             <div class="card-body flex items-center justify-center">
                 <ul class="grid gap-2">
                     <li class="flex gap-2 items-start"><span class="badge badge-xs mt-1.5 bg-gray-900"></span><p>Siswa yang mengikuti kegiatan di luar sekolah (study tour, lomba, kunjungan) harus mematuhi semua aturan yang berlaku dan menjaga nama baik sekalah.</p></li>
@@ -56,7 +56,7 @@ require_once '../layout/_top.php';
                 </ul>
             </div>
         </div>
-        <div class="card w-96 shadow-xl bg-gray-800 h-[40rem]">
+        <div class="card w-96 shadow-xl bg-gray-800 h-[40rem]" data-aos="zoom-out">
             <div class="card-body flex items-center justify-center">
                 <ul class="grid gap-2">
                     <li class="flex gap-2 items-start"><span class="badge badge-xs mt-1.5 bg-gray-900"></span><p>Siswa diharapkan mengikuti kegiatan keagamaan yang diadakan oleh sekolah sesuai dengan agama dan keyakinannya masing-masing.</p></li>
@@ -67,7 +67,7 @@ require_once '../layout/_top.php';
                 </ul>
             </div>
         </div>
-        <div class="card w-96 shadow-xl bg-gray-800 h-[40rem]">
+        <div class="card w-96 shadow-xl bg-gray-800 h-[40rem]" data-aos="zoom-out">
             <div class="card-body flex items-center justify-center">
                 <ul class="grid gap-2">
                     <li class="flex gap-2 items-start"><span class="badge badge-xs mt-1.5 bg-gray-900"></span><p>Kedisiplinan dan Tata Tertib kelas. Siswa harus mematuhi instruksi guru dan stat sekolah dengan hormat.</p></li>

@@ -55,6 +55,12 @@
                                 </a>
                             </li>
                             <li>
+                                <a href="../Admin/event.php" class="btn border-none hover:text-white <?php echo isActive('Admin/event.php'); ?>">
+                                    <i class='bx bx-calendar'></i>
+                                    Event
+                                </a>
+                            </li>
+                            <li>
                                 <a href="../Admin/contact.php" class="btn border-none hover:text-white <?php echo isActive('Admin/contact.php'); ?>">
                                     <i class='bx bx-phone'></i>
                                     Contact
