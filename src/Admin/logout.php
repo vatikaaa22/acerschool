@@ -2,4 +2,11 @@
 session_start();
 unset($_SESSION['login']);
 $_SESSION['login'] = null;
-header('Location: login.php');
+
+echo "<script>
+            localStorage.removeItem('selectedTab');
+            window.location.href = 'login.php';
+    </script>";
+
+    exit();
+?>

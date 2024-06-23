@@ -11,29 +11,50 @@ require_once '../layout/_top.php';
 
 
         <span class="flex items-center justify-center gap-5">
-            <div class="relative bg-white border h-[15rem] w-[20rem] p-5 rounded-box grid text-black">
+            <div class="relative bg-white border h-[15rem] w-[20rem] p-5 rounded-box grid text-black" data-aos ="fade-in">
                 <div class="py-2 px-3 rounded-full bg-gray-300 border absolute -top-1 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
                     <i class="bx bx-map text-3xl"></i>
                 </div>
-
                 <h1 class="text-center font-bold py-2 text-xl">Alamat</h1>    
                 <p><span class="font-semibold">Kampus 1</span> : <br/> Jl. Kusuma No. 75 Bumirejo Kebumen 54316</p>
                 <p><span class="font-semibold">Kampus 2</span> : <br/> Jl. HM Sarbini No. 129 Kebumen</p>
             </div>
 
-            <div class="relative bg-white border h-[15rem] w-[20rem] p-5 rounded-box grid text-black">
+            <div class="relative bg-white border h-[15rem] w-[20rem] p-5 rounded-box grid text-black" data-aos ="fade-in">
                 <div class="py-2 px-3 rounded-full bg-gray-300 border absolute -top-1 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
                     <i class="bx bx-phone text-3xl"></i>
                 </div>
-
+                
                 <h1 class="text-center font-bold py-2 text-xl">Nomer Telepon</h1>    
+
                 <span class="text-center">
-                    <p><span class="font-semibold">Tata Usaha</span> : 08976123518172</p>
-                    <p><span class="font-semibold">Humas</span> : 08976123518172</p>
+                <?php 
+                    include "../../helper/connection.php";
+
+                    $sql = "SELECT * FROM phones WHERE `default` = 1 LIMIT 3";
+                    
+                    $query = mysqli_query($connection, $sql);
+                    
+                    if(mysqli_fetch_array($query)){
+
+                        while($data = mysqli_fetch_array($query)){
+                ?>
+                    <p><span class="font-semibold"><?php echo $data["username"]?></span> : <?php echo $data["number"]?></p>
+                <?php 
+                        }
+                    }else{
+                ?>
+                    <span class="text-center mt-20">
+                        <p><span class="font-semibold">Tidak Ada DATA</p>
+                    </span>
+
+                <?php 
+                    }
+                ?>
                 </span>
             </div>
 
-            <div class="relative bg-white border h-[15rem] w-[20rem] p-5 rounded-box grid text-black">
+            <div class="relative bg-white border h-[15rem] w-[20rem] p-5 rounded-box grid text-black" data-aos ="fade-in">
                 <div class="py-2 px-3 rounded-full bg-gray-300 border absolute -top-1 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
                     <i class="bx bx-envelope text-3xl"></i>
                 </div>
@@ -44,44 +65,63 @@ require_once '../layout/_top.php';
             </div>
         </span>
 
-        <form action="" class="w-full py-10 items-center justify-center">
-            <div class="mx-auto w-1/2">
-                <h1>Form Kontak</h1>
-
-                <div class="grid gap-5">
-                    <span class="flex gap-2 w-full">
-                        <label class="input input-bordered flex items-center gap-2 bg-white grow">
-                            <input type="text" class="grow" placeholder="Nama" name="nama" id="nama" />
-                        </label>
-    
-                        <label class="input input-bordered flex items-center gap-2 bg-white grow">
-                            <input type="text" class="grow" placeholder="Nomor" name="nomor" id="nomor" />
-                        </label>
-                    </span>
-
-                    <span class="flex gap-2 w-full">
-                        <label class="input input-bordered flex items-center gap-2 bg-white grow">
-                            <input type="email" class="grow" placeholder="Email" name="email" id="email" />
-                        </label>
-
-                        <label class="input input-bordered flex items-center gap-2 bg-white grow">
-                            <input type="text" class="grow" placeholder="Subject" name="subject" id="subject" />
-                        </label>
-                    </span>
-
-                    <label class="input input-bordered gap-2 bg-white">
-                        <textarea class="grow bg-white" placeholder="Pesan" name="message" id="message"></textarea>
-                    </label>
-
-                    <div class="text-white flex items-center justify-end gap-2 w-full">
-                        <button class="btn w-1/2 text-white bg-green-600" type="submit" name="submit">Kirim</button> 
+        <!-- FORM MASUKAN -->
+        <span class="mt-5">
+            <h1 class="font-bold  text-3xl text-center">&mdash; Form Kontak &mdash; </h1>
+            <span class="flex items-center justify-center">
+                <form action="" class="w-3/4 py-10 items-center justify-center ">
+                    <div class="mx-auto w-1/2">
+        
+                        <div class="grid gap-5">
+                            <span class="flex gap-2 w-full">
+                                <span class="grow">
+                                    <label for="content" class="text-lg font-semibold ">Nama</label>
+                                    <label class="input input-bordered flex items-center gap-2 bg-white grow">
+                                        <input required type="text" class="grow" placeholder="Nama" name="nama" id="nama" />
+                                    </label>
+                                </span>
+            
+                                <span class="grow">
+                                    <label for="content" class="text-lg font-semibold ">Nomor</label>
+                                    <label class="input input-bordered flex items-center gap-2 bg-white grow">
+                                        <input required type="number" class="grow" placeholder="Nomor" name="nomor" id="nomor" />
+                                    </label>
+                                </span>
+                            </span>
+        
+                            <span class="flex gap-2 w-full">
+                                <span class="grow">
+                                    <label for="content" class="text-lg font-semibold ">Email</label>
+                                    <label class="input input-bordered flex items-center gap-2 bg-white grow">
+                                        <input required type="email" class="grow" placeholder="Email" name="email" id="email" />
+                                    </label>
+                                </span>
+        
+                                <span class="grow">
+                                    <label for="content" class="text-lg font-semibold ">Subject</label>
+                                    <label class="input input-bordered flex items-center gap-2 bg-white grow">
+                                        <input required type="text" class="grow" placeholder="Subject" name="subject" id="subject" />
+                                    </label>
+                                </span>
+                            </span>
+        
+                            <div class="flex flex-col">
+                                <label for="content" class="text-lg font-semibold ">Pesan</label>
+                                <textarea name="message" id="content" class="input input-bordered bg-white h-40 py-1" placeholder="Tulis Pesan" required></textarea>
+                            </div>
+        
+                            <div class=" flex items-center justify-end gap-2 w-full">
+                                <button class="btn px-10 text-white bg-green-600 hover:bg-green-900" type="submit" name="submit">Kirim</button> 
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </form>
+                </form>
+            </span>
+        </span>
+        <!-- END FORM MASUKAN -->
 </div>
 
 
 <?php
-require_once '../layout/_bottom.php';
+    require_once '../layout/_bottom.php';
 ?>

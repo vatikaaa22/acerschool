@@ -49,7 +49,10 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="btn border-none hover:text-white <?php echo isActive('#'); ?>">Products</a>
+                                <a href="../Admin/fasilitas.php" class="btn border-none hover:text-white <?php echo isActive('Admin/fasilitas.php'); ?>">
+                                    <i class='bx bx-folder'></i>
+                                    Fasilitas
+                                </a>
                             </li>
                             <li>
                                 <a href="../Admin/contact.php" class="btn border-none hover:text-white <?php echo isActive('Admin/contact.php'); ?>">

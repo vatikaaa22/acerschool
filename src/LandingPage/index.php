@@ -1,9 +1,9 @@
 <?php
 require_once '../layout/_top.php';
 ?>
-    <div class="hero min-h-screen" style="background-image: url(https://images.unsplash.com/20/cambridge.JPG?q=80&w=2047&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D); ">
+    <div class="hero min-h-screen" style="background-image: url(https://images.unsplash.com/20/cambridge.JPG?q=80&w=2047&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);" class="bg-opacity-90">
         <div class="hero-content flex-col lg:flex-row-reverse text-white">
-            <img src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.jpg" class="max-w-sm rounded-lg shadow-2xl" />
+            <img src="https://images.unsplash.com/photo-1527891751199-7225231a68dd?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="max-w-sm rounded-lg shadow-2xl" />
             <div class="bg-gray-800 px-10 py-5 rounded-box opacity-80" >
                 <h1 class="text-5xl font-bold">Selamat Datang</h1>
                 <p class="text-xl">Website Accer High School</p>
@@ -24,6 +24,13 @@ require_once '../layout/_top.php';
             $query = mysqli_query($connection, $sql);
 
             $no = 1;
+
+            if(mysqli_num_rows($query) == 0){
+                echo "<span class='h-screen flex items-center justify-center'>
+                <h1 class='text-center text-2xl font-bold'>Belum ada berita</h1>
+                </span>";
+            }
+
             while($data = mysqli_fetch_array($query)){
         ?>
 
@@ -45,3 +52,4 @@ require_once '../layout/_top.php';
 <?php
     require_once '../layout/_bottom.php';
 ?>
+
