@@ -3,6 +3,7 @@
 
     $title = $_POST["title"];
     $description = $_POST["description"];
+    $location = $_POST["location"];
     $information_date = date('Y-m-d');
 
     // Nama file temporary yang akan disimpan di server 
@@ -27,8 +28,8 @@
         echo "Nama File <b>$namafile</b> sukses di upload";
 
         // Masukkan informasi file ke dalam database 
-        $sql = "INSERT INTO informations(title, image, information_date, description) 
-                VALUES('$title', '$namafile', '$information_date', '$description')"; 
+        $sql = "INSERT INTO informations(title, image, information_date, description, location) 
+                VALUES('$title', '$namafile', '$information_date', '$description', '$location')"; 
         $hasil = mysqli_query($connection, $sql);
         
         if ($hasil) {

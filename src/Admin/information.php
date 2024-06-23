@@ -114,6 +114,10 @@
                                 <input type="text" name="title" id="title" class="input input-bordered bg-white" placeholder="Enter Information Title" />
                             </div>
                             <div class="flex flex-col">
+                                <label for="location" class="text-lg font-semibold text-black">Location</label>
+                                <input type="text" name="location" id="location" class="input input-bordered bg-white" placeholder="Enter Information location" />
+                            </div>
+                            <div class="flex flex-col">
                                 <label for="content" class="text-lg font-semibold text-black">Content</label>
                                 <textarea name="description" id="content" class="input input-bordered bg-white h-40 py-1" placeholder="Enter Content"></textarea>
                             </div>

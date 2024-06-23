@@ -15,17 +15,35 @@ require_once '../layout/_top.php';
         <h1 class="font-bold text-3xl ms-4 mb-5">Mengapa memilih sekolah Accer High School</h1>
         <div class="hero-content flex-row-reverse text-white">
             <img src="https://images.unsplash.com/photo-1527891751199-7225231a68dd?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="max-w-sm rounded-lg shadow-2xl order-1" />
-            <div class="bg-gray-800 px-10 py-5 rounded-box opacity-80" >
-                <h1 class="text-5xl font-bold">Selamat Datang</h1>
-                <p class="text-xl">Website Accer High School</p>
-                <p class="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
-                <button class="btn text-white font-bold">Lihat lainnya !</button>
+            <div class="bg-gray-800 grid gap-5 px-5 rounded-box opacity-80 py-5" >
+                <span class="flex gap-3 items-center">
+                    <i class="bx bx-news text-5xl"></i>
+                    <div class="grid">
+                        <h1 class="font-semibold text-xl">Belajar Lebih Nyaman</h1>
+                        <p>Anak dapat belajar apa saja dengan jadwal yang fleksibel tanpa batas waktu.</p>
+                    </div>
+                </span>
+                <span class="flex gap-3 items-center">
+                    <i class="bx bxl-slack text-5xl"></i>
+                    <div class="grid">
+                        <h1 class="font-semibold text-xl">Metode Pembelajaran Interaktif</h1>
+                        <p>Terdapat fitur Belajar Live dan terpersonalisasi yang memudahkan anak untuk berdiskusi secara real-time.</p>
+                    </div>
+                </span>
+                <span class="flex gap-3 items-center">
+                    <i class="bx bxs-layer text-5xl"></i>
+                    <div class="grid">
+                        <h1 class="font-semibold text-xl">Guru Berpengalaman dan Kompeten</h1>
+                        <p>Guru yang mampu menciptakan lingkungan belajar kondusif dengan menggunakan materi berkualitas yang dirancang oleh para ahli.</p>
+                    </div>
+                </span>
             </div>
         </div>
     </span>
-
+    
     <h1 class="font-bold  text-3xl text-center mb-10">&mdash; Peraturan Sekolah &mdash; </h1>
-
+    
+    <!-- PERATURAN -->
     <span class="flex gap-5 justify-center items-center mb-5">
         <div class="card w-96 shadow-xl bg-gray-800 h-[40rem]">
             <div class="card-body flex items-center justify-center">
@@ -66,9 +84,8 @@ require_once '../layout/_top.php';
                 <h2 class="font-bold  text-3xl text-center ">TIDAK MENDUKUNG RRO DAN BARCA APALAGI ISRAEL</h2>
             </div>
     </div>
-
+    <!-- END PERATURAN -->
 </div>
-
 
 <?php
 require_once '../layout/_bottom.php';

@@ -11,18 +11,18 @@ require_once '../layout/_top.php';
 
 
         <span class="flex items-center justify-center gap-5">
-            <div class="relative bg-white border h-[15rem] w-[20rem] p-5 rounded-box grid text-black" data-aos ="fade-in">
-                <div class="py-2 px-3 rounded-full bg-gray-300 border absolute -top-1 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
-                    <i class="bx bx-map text-3xl"></i>
+            <div class="relative bg-gray-800 h-[15rem] w-[20rem] p-5 rounded-box grid" data-aos ="fade-in">
+                <div class="py-2 px-3 rounded-full bg-gray-900 absolute -top-1 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
+                    <i class="bx bx-map text-4xl"></i>
                 </div>
                 <h1 class="text-center font-bold py-2 text-xl">Alamat</h1>    
                 <p><span class="font-semibold">Kampus 1</span> : <br/> Jl. Kusuma No. 75 Bumirejo Kebumen 54316</p>
                 <p><span class="font-semibold">Kampus 2</span> : <br/> Jl. HM Sarbini No. 129 Kebumen</p>
             </div>
 
-            <div class="relative bg-white border h-[15rem] w-[20rem] p-5 rounded-box grid text-black" data-aos ="fade-in">
-                <div class="py-2 px-3 rounded-full bg-gray-300 border absolute -top-1 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
-                    <i class="bx bx-phone text-3xl"></i>
+            <div class="relative bg-gray-800 h-[15rem] w-[20rem] p-5 rounded-box grid" data-aos ="fade-in">
+                <div class="py-2 px-3 rounded-full bg-gray-900 absolute -top-1 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
+                    <i class="bx bx-phone text-4xl"></i>
                 </div>
                 
                 <h1 class="text-center font-bold py-2 text-xl">Nomer Telepon</h1>    
@@ -54,9 +54,9 @@ require_once '../layout/_top.php';
                 </span>
             </div>
 
-            <div class="relative bg-white border h-[15rem] w-[20rem] p-5 rounded-box grid text-black" data-aos ="fade-in">
-                <div class="py-2 px-3 rounded-full bg-gray-300 border absolute -top-1 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
-                    <i class="bx bx-envelope text-3xl"></i>
+            <div class="relative bg-gray-800 h-[15rem] w-[20rem] p-5 rounded-box grid" data-aos ="fade-in">
+                <div class="py-2 px-3 rounded-full bg-gray-900 absolute -top-1 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
+                    <i class="bx bx-envelope text-4xl"></i>
                 </div>
 
                 <h1 class="text-center font-bold py-2 text-xl">Email</h1>    

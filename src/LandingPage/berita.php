@@ -28,14 +28,14 @@
 
         <span class="flex">
             <div class="card card-side w-full bg-base-100 shadow-xl">
-            <img src="../Admin/uploads/<?php echo $data["image"]?>"  class="rounded-l-lg shadow-2xl max-w-xl">
+            <img src="../Admin/uploads/<?php echo $data["image"]?>"  class="rounded-l-lg shadow-2xl max-w-lg max-h-[20rem]">
                 <div class="card-body">
                     <small>Berita Terkini</small>
                     <h2 class="card-title text-2xl font-bold"><?php echo $data["title"]?></h2>
-                    <p><?php echo $data["description"]?></p>
+                    <p class="max-h-[10rem] overflow-x-scroll"><?php echo $data["description"]?></p>
                     <span class="flex gap-3 mt-2">
                         <span class="flex btn btn-sm gap-1 items-center justify-center bg-green-500 text-white opacity-80 hover:bg-green-800"><i class="bx bx-calendar"></i><?php echo $data["information_date"]?></span>
-                        <span class="flex btn btn-sm gap-1 items-center justify-center bg-blue-500 text-white opacity-80 hover:bg-blue-800"><i class="bx bx-map"></i>Madrid, Spanyol</span>
+                        <span class="flex btn btn-sm gap-1 items-center justify-center bg-blue-500 text-white opacity-80 hover:bg-blue-800"><i class="bx bx-map"></i><?php echo $data["location"]?></span>
                     </span>
                 </div>
             </div>
