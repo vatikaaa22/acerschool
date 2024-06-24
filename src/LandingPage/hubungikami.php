@@ -1,5 +1,35 @@
 <?php
-require_once '../layout/_top.php';
+    session_start();
+    require_once '../layout/_top.php';
+    require_once '../../helper/connection.php';
+
+    // HUBUNGI KAMI 
+    if(isset($_POST["submit"])){
+        $nama = $_POST["nama"];
+        $nomor = $_POST["nomor"];
+        $email = $_POST["email"];
+        $subject = $_POST["subject"];
+        $message = $_POST["message"];
+
+        $stmt = $connection->prepare("INSERT INTO services(`name`, `number`, `email`, `subject`, `message`) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("sisss", $nama, $nomor, $email, $subject, $message); 
+        $stmt->execute();
+
+        if ($stmt->affected_rows > 0) {
+            $_SESSION['toast_message'] = 'Data berhasil ditambahkan';
+            $_SESSION['toast_type'] = 'success';
+        } else {
+            $_SESSION['toast_message'] = 'Pesan Gagal Dikirim';
+            $_SESSION['toast_type'] = 'error';
+        }
+
+        $stmt->close();
+        $connection->close();
+
+        // Redirect untuk menghindari pengiriman ulang form
+        header("Location: " . $_SERVER['PHP_SELF']);
+        exit();
+    }
 ?>
 
 <div class="py-20 grid gap-10">
@@ -118,44 +148,44 @@ require_once '../layout/_top.php';
         <span class="mt-5">
             <h1 class="font-bold  text-3xl text-center">&mdash; Form Kontak &mdash; </h1>
             <span class="flex items-center justify-center">
-                <form action="" class="w-3/4 py-10 items-center justify-center " data-aos ="zoom-out">
+                <form action="" method="POST" class="w-3/4 py-10 items-center justify-center text-black" data-aos ="zoom-out">
                     <div class="mx-auto w-1/2">
         
                         <div class="grid gap-5">
                             <span class="flex gap-2 w-full">
                                 <span class="grow">
-                                    <label for="content" class="text-lg font-semibold ">Nama</label>
+                                    <label for="content" class="text-lg font-semibold text-white">Nama</label>
                                     <label class="input input-bordered flex items-center gap-2 bg-white grow">
                                         <input required type="text" class="grow" placeholder="Nama" name="nama" id="nama" />
                                     </label>
                                 </span>
             
                                 <span class="grow">
-                                    <label for="content" class="text-lg font-semibold ">Nomor</label>
+                                    <label for="content" class="text-lg font-semibold text-white">Nomor</label>
                                     <label class="input input-bordered flex items-center gap-2 bg-white grow">
-                                        <input required type="number" class="grow" placeholder="Nomor" name="nomor" id="nomor" />
+                                        <input required type="number" class="grow" placeholder="Nomor" name="nomor" id="nomor" required/>
                                     </label>
                                 </span>
                             </span>
         
                             <span class="flex gap-2 w-full">
                                 <span class="grow">
-                                    <label for="content" class="text-lg font-semibold ">Email</label>
+                                    <label for="content" class="text-lg font-semibold text-white">Email</label>
                                     <label class="input input-bordered flex items-center gap-2 bg-white grow">
-                                        <input required type="email" class="grow" placeholder="Email" name="email" id="email" />
+                                        <input required type="email" class="grow" placeholder="Email" name="email" id="email" required/>
                                     </label>
                                 </span>
         
                                 <span class="grow">
-                                    <label for="content" class="text-lg font-semibold ">Subject</label>
+                                    <label for="content" class="text-lg font-semibold text-white">Subject</label>
                                     <label class="input input-bordered flex items-center gap-2 bg-white grow">
-                                        <input required type="text" class="grow" placeholder="Subject" name="subject" id="subject" />
+                                        <input required type="text" class="grow" placeholder="Subject" name="subject" id="subject" required />
                                     </label>
                                 </span>
                             </span>
         
                             <div class="flex flex-col">
-                                <label for="content" class="text-lg font-semibold ">Pesan</label>
+                                <label for="content" class="text-lg font-semibold text-white">Pesan</label>
                                 <textarea name="message" id="content" class="input input-bordered bg-white h-40 py-1" placeholder="Tulis Pesan" required></textarea>
                             </div>
         
@@ -170,6 +200,29 @@ require_once '../layout/_top.php';
         <!-- END FORM MASUKAN -->
 </div>
 
+
+<script>
+    toastr.options = {
+        "closeButton": true,
+        'progressBar': true,
+        "positionClass": "toast-top-right",
+    }
+
+    $(document).(function() {
+        <?php
+        if (isset($_SESSION['toast_message'])) {
+            $type = $_SESSION['toast_type'];
+            $message = $_SESSION['toast_message'];
+            
+            // echo "toastr.$type('$message');";
+            echo "toastr.success('$message');";
+
+            unset($_SESSION['toast_message']);
+            unset($_SESSION['toast_type']);
+        }
+        ?>
+    });
+</script>
 
 <?php
     require_once '../layout/_bottom.php';
