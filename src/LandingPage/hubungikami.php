@@ -11,15 +11,38 @@ require_once '../layout/_top.php';
 
 
         <span class="flex items-center justify-center gap-5">
+            <!-- ALAMAT -->
             <div class="relative bg-gray-800 h-[15rem] w-[20rem] p-5 rounded-box grid" data-aos ="zoom-out">
                 <div class="py-2 px-3 rounded-full bg-gray-900 absolute -top-1 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
                     <i class="bx bx-map text-4xl"></i>
                 </div>
                 <h1 class="text-center font-bold py-2 text-xl">Alamat</h1>    
-                <p><span class="font-semibold">Kampus 1</span> : <br/> Jl. Kusuma No. 75 Bumirejo Kebumen 54316</p>
-                <p><span class="font-semibold">Kampus 2</span> : <br/> Jl. HM Sarbini No. 129 Kebumen</p>
-            </div>
+                <?php 
+                    include "../../helper/connection.php";
 
+                    $sql = "SELECT * FROM address WHERE `isDefault` = 1 LIMIT 2";
+                    
+                    $query = mysqli_query($connection, $sql);
+                    
+                    if(mysqli_fetch_array($query)){
+
+                        while($data = mysqli_fetch_array($query)){
+                ?>
+                <p><span class="font-semibold"><?php echo $data["address_name"]?></span> : <br/><?php echo $data["address_info"]?></p>
+                <?php 
+                        }
+                    }else{
+                ?>
+                    <span class="text-center">
+                        <p><span class="font-semibold">Tidak Ada DATA</p>
+                    </span>
+                <?php 
+                    }
+                ?>
+            </div>
+            <!-- END ALAMAT -->
+
+            <!-- NOMOR Telepon -->
             <div class="relative bg-gray-800 h-[15rem] w-[20rem] p-5 rounded-box grid" data-aos ="zoom-out">
                 <div class="py-2 px-3 rounded-full bg-gray-900 absolute -top-1 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
                     <i class="bx bx-phone text-4xl"></i>
@@ -53,16 +76,42 @@ require_once '../layout/_top.php';
                 ?>
                 </span>
             </div>
-
+            <!--END  NOMOR Telepon -->
+            
+            <!-- EMAIL -->
             <div class="relative bg-gray-800 h-[15rem] w-[20rem] p-5 rounded-box grid" data-aos ="zoom-out">
                 <div class="py-2 px-3 rounded-full bg-gray-900 absolute -top-1 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
                     <i class="bx bx-envelope text-4xl"></i>
                 </div>
 
-                <h1 class="text-center font-bold py-2 text-xl">Email</h1>    
-                <p><span class="font-semibold">Kampus 1</span> : <br/> Jl. Kusuma No. 75 Bumirejo Kebumen 54316</p>
-                <p><span class="font-semibold">Kampus 2</span> : <br/> Jl. HM Sarbini No. 129 Kebumen</p>
+                <h1 class="text-center font-bold py-2 text-xl">Email</h1> 
+                <?php 
+                    include "../../helper/connection.php";
+
+                    $sql = "SELECT * FROM emails WHERE `isDefault` = 1 LIMIT 2";
+                    
+                    $query = mysqli_query($connection, $sql);
+                    $no = 0;
+                    
+                    if(mysqli_fetch_array($query)){
+
+                        while($data = mysqli_fetch_array($query)){
+                ?>
+                <p><span class="font-semibold"><?php echo "Email". $no ?></span> : <br/> <?php echo $data["email"]?></p>
+                <?php 
+                            $no++;
+                        }
+                    }else{
+                ?>
+                    <span class="text-center">
+                        <p><span class="font-semibold">Tidak Ada DATA</p>
+                    </span>
+
+                <?php 
+                    }
+                ?>
             </div>
+            <!-- END EMAIL -->
         </span>
 
         <!-- FORM MASUKAN -->

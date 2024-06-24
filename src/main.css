@@ -3286,16 +3286,16 @@ input.tab:checked + .tab-content,
   top: 1.25rem;
 }
 
+.z-10 {
+  z-index: 10;
+}
+
 .z-50 {
   z-index: 50;
 }
 
 .z-\[1\] {
   z-index: 1;
-}
-
-.z-10 {
-  z-index: 10;
 }
 
 .order-1 {
@@ -3315,11 +3315,6 @@ input.tab:checked + .tab-content,
 .my-5 {
   margin-top: 1.25rem;
   margin-bottom: 1.25rem;
-}
-
-.my-2 {
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
 }
 
 .mb-10 {
@@ -3342,8 +3337,16 @@ input.tab:checked + .tab-content,
   margin-right: 0.5rem;
 }
 
+.ms-10 {
+  margin-inline-start: 2.5rem;
+}
+
 .ms-4 {
   margin-inline-start: 1rem;
+}
+
+.ms-5 {
+  margin-inline-start: 1.25rem;
 }
 
 .mt-1 {
@@ -3442,16 +3445,16 @@ input.tab:checked + .tab-content,
   height: 40rem;
 }
 
+.h-auto {
+  height: auto;
+}
+
 .h-full {
   height: 100%;
 }
 
 .h-screen {
   height: 100vh;
-}
-
-.h-auto {
-  height: auto;
 }
 
 .max-h-32 {
@@ -3462,44 +3465,48 @@ input.tab:checked + .tab-content,
   max-height: 15rem;
 }
 
-.max-h-\[48rem\] {
-  max-height: 48rem;
-}
-
-.max-h-\[30rem\] {
-  max-height: 30rem;
+.max-h-\[10rem\] {
+  max-height: 10rem;
 }
 
 .max-h-\[20rem\] {
   max-height: 20rem;
 }
 
-.max-h-\[10rem\] {
-  max-height: 10rem;
+.max-h-\[48rem\] {
+  max-height: 48rem;
 }
 
-.min-h-screen {
-  min-height: 100vh;
+.max-h-20 {
+  max-height: 5rem;
 }
 
-.min-h-\[40rem\] {
-  min-height: 40rem;
+.max-h-\[25rem\] {
+  max-height: 25rem;
 }
 
-.min-h-\[10rem\] {
-  min-height: 10rem;
+.max-h-\[22rem\] {
+  max-height: 22rem;
 }
 
-.min-h-\[20rem\] {
-  min-height: 20rem;
+.max-h-\[21rem\] {
+  max-height: 21rem;
+}
+
+.min-h-\[15rem\] {
+  min-height: 15rem;
 }
 
 .min-h-\[5rem\] {
   min-height: 5rem;
 }
 
-.min-h-\[50vh\] {
-  min-height: 50vh;
+.min-h-screen {
+  min-height: 100vh;
+}
+
+.min-h-\[20rem\] {
+  min-height: 20rem;
 }
 
 .w-1\/2 {
@@ -3574,12 +3581,12 @@ input.tab:checked + .tab-content,
   width: 50rem;
 }
 
-.w-full {
-  width: 100%;
-}
-
 .w-\[700px\] {
   width: 700px;
+}
+
+.w-full {
+  width: 100%;
 }
 
 .max-w-\[95rem\] {
@@ -3602,8 +3609,8 @@ input.tab:checked + .tab-content,
   max-width: 24rem;
 }
 
-.max-w-xl {
-  max-width: 36rem;
+.max-w-20 {
+  max-width: 5rem;
 }
 
 .flex-1 {
@@ -3732,6 +3739,10 @@ input.tab:checked + .tab-content,
   border-radius: 0.5rem;
 }
 
+.rounded-md {
+  border-radius: 0.375rem;
+}
+
 .rounded-l-lg {
   border-top-left-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;
@@ -3823,36 +3834,6 @@ input.tab:checked + .tab-content,
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-}
-
-.bg-secondary {
-  --tw-bg-opacity: 1;
-  background-color: var(--fallback-s,oklch(var(--s)/var(--tw-bg-opacity)));
-}
-
-.bg-primary {
-  --tw-bg-opacity: 1;
-  background-color: var(--fallback-p,oklch(var(--p)/var(--tw-bg-opacity)));
-}
-
-.bg-slate-900 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(15 23 42 / var(--tw-bg-opacity));
-}
-
-.bg-gray-500 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(107 114 128 / var(--tw-bg-opacity));
-}
-
-.bg-gray-950 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(3 7 18 / var(--tw-bg-opacity));
-}
-
-.bg-base-200 {
-  --tw-bg-opacity: 1;
-  background-color: var(--fallback-b2,oklch(var(--b2)/var(--tw-bg-opacity)));
 }
 
 .bg-opacity-90 {
@@ -3986,6 +3967,10 @@ input.tab:checked + .tab-content,
   padding-inline-start: 20rem;
 }
 
+.pt-12 {
+  padding-top: 3rem;
+}
+
 .pt-20 {
   padding-top: 5rem;
 }
@@ -3994,24 +3979,8 @@ input.tab:checked + .tab-content,
   padding-top: 1.25rem;
 }
 
-.pt-\[1rem\] {
-  padding-top: 1rem;
-}
-
-.pt-\[3rem\] {
-  padding-top: 3rem;
-}
-
-.pt-\[5rem\] {
-  padding-top: 5rem;
-}
-
 .pt-\[7rem\] {
   padding-top: 7rem;
-}
-
-.pt-12 {
-  padding-top: 3rem;
 }
 
 .text-center {
@@ -4057,16 +4026,6 @@ input.tab:checked + .tab-content,
   line-height: 1.75rem;
 }
 
-.text-7xl {
-  font-size: 4.5rem;
-  line-height: 1;
-}
-
-.text-6xl {
-  font-size: 3.75rem;
-  line-height: 1;
-}
-
 .font-bold {
   font-weight: 700;
 }
@@ -4100,11 +4059,6 @@ input.tab:checked + .tab-content,
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
-.text-base-300 {
-  --tw-text-opacity: 1;
-  color: var(--fallback-b3,oklch(var(--b3)/var(--tw-text-opacity)));
-}
-
 .opacity-50 {
   opacity: 0.5;
 }
@@ -4115,14 +4069,6 @@ input.tab:checked + .tab-content,
 
 .opacity-80 {
   opacity: 0.8;
-}
-
-.opacity-10 {
-  opacity: 0.1;
-}
-
-.opacity-90 {
-  opacity: 0.9;
 }
 
 .shadow {
