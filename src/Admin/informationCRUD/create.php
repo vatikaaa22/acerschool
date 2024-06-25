@@ -28,8 +28,8 @@
         echo "Nama File <b>$namafile</b> sukses di upload";
 
         // Masukkan informasi file ke dalam database 
-        $sql = "INSERT INTO informations(title, image, information_date, description, location) 
-                VALUES('$title', '$namafile', '$information_date', '$description', '$location')"; 
+        $sql = "INSERT INTO informations(title, image, information_date, description, location, user_id) 
+                VALUES('$title', '$namafile', '$information_date', '$description', '$location', 1)"; 
         $hasil = mysqli_query($connection, $sql);
         
         if ($hasil) {

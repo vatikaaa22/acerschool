@@ -50,8 +50,8 @@
                 <tr>
                     <th>No</th>
                     <th>Information Title</th>
-                    <th>Content</th>
-                    <th class="w-40">Image</th>
+                    <th class="text-center">Content</th>
+                    <th class="text-center">Image</th>
                     <th class="text-center">Date</th>
                     <th class="text-center">Action</th>
                 </tr>
@@ -80,11 +80,11 @@
                                 </div>
                             </div>
                         <td>
-                            <p class="text-sm">
+                            <p class="text-sm max-h-10 overflow-x-scroll">
                                 <?php echo $data["description"]?>
                             </p>
                         </td>
-                        <td><img src="./uploads/<?php echo $data["image"] ?>"></td>
+                        <td class="flex items-center justify-center"><img src="./uploads/<?php echo $data["image"] ?>" class="max-w-20 max-h-20 rounded-md"></td>
                         <td class="text-center text-nowrap"><?php echo $data["information_date"] ?></td>
                         <th>
                             <span class="flex items-center justify-center gap-1">
@@ -135,13 +135,13 @@
 
     <!-- MODAL UPDATE -->
     <dialog id="update_modal" class="modal">
-        <form id="updateForm" class="mb-10 border w-[40rem] shadow-md py-5 px-10 mt-4 rounded-box bg-gray-100 modal-box text-black" enctype="multipart/form-data" method="POST">
+        <form id="updateForm" class="mb-10 border w-[40rem] shadow-md py-5 px-10 mt-4 rounded-box bg-gray-100 modal-box text-black" enctype="multipart/form-data" method="POST" action="./informationCRUD/delete.php?information_id=<?php echo $data['information_id']?>">
             <h1 class="text-2xl font-bold text-black">Update information</h1>
             <div id="formContent">
                 <!-- NANTI BERISI CONTENT -->
             </div>
             <div class="flex justify-end mt-4">
-                <button class="btn text-white w-36">Save</button>
+                <button class="btn text-white w-36" onclick="updateInformation()">Save</button>
             </div>
         </form>
         <form method="dialog" class="modal-backdrop">
@@ -153,21 +153,65 @@
 </div>
 
 <script>
-function openUpdateModal(informationId) {
-    document.getElementById('update_modal').showModal();
-    
-    // Use AJAX to load the form content
-    fetch('./informationCRUD/edit.php?id=' + informationId)
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('formContent').innerHTML = data;
+
+    toastr.options = {
+        "progressbar" :true
+    }
+
+    let updateId;
+
+    function openUpdateModal(informationId) {
+        updateId = informationId;
+
+        document.getElementById('update_modal').showModal();
+        
+        // Use AJAX to load the form content
+        fetch('./informationCRUD/edit.php?id=' + informationId)
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('formContent').innerHTML = data;
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    function updateInformation() {
+        const form = document.getElementById('updateForm');
+        const formData = new FormData(form);
+        formData.append('id', updateId);
+
+        if (typeof updateId === 'undefined' || updateId === null) {
+            console.error('updateId tidak didefinisikan');
+            return;
+        }
+
+        fetch('./informationCRUD/update.php', {
+            method: 'POST',
+            body: formData
         })
-        .catch(error => console.error('Error:', error));
-}
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok: ' + response.statusText);
+            }
+            return response.text();
+        })
+        .then(data => {
+            console.log(data);
+            if (data.includes("Error")) {
+                window.location.reload();
+            } else {
+                toastr.error("Terjadi kesalahan");
+            }
+        })
+        .catch(error => {
+            toastr.error("Error");
+        });
+    }
+
 </script>
 
 <?php
     include '../Layout/Admin/_bottom.php';
 ?>
+
 
 
