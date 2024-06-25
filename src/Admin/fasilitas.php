@@ -67,7 +67,6 @@
 
                 while($data = mysqli_fetch_array($query)){
             ?>
-                    <!-- row 1 -->
                     <tr>
                         <th>
                             <span class="text-sm"><?php echo $no ?></span>
@@ -146,7 +145,7 @@
             <h3 class="font-bold text-lg">Confirm Delete</h3>
             <p class="py-4">Anda yakin untuk menghapus data?</p>
             <div class="modal-action">
-                <button class="btn btn-outline mr-2" onclick="closeModal()">Cancel</button>
+                <button class="btn btn-outline mr-2" onclick="document.getElementById('delete_fasilitas_modal').close()">Cancel</button>
                 <button class="btn btn-error text-white" onclick="confirmDelete()">Delete</button>
             </div>
         </div>
@@ -178,10 +177,6 @@
     function onDelete(facilityId) {
         currentFacilityId = facilityId;
         document.getElementById('delete_fasilitas_modal').showModal();
-    }
-
-    function closeModal() {
-        document.getElementById('delete_fasilitas_modal').close();
     }
 
     function confirmDelete() {

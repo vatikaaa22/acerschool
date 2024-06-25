@@ -81,7 +81,7 @@
                         <th>
                             <span class="flex items-center justify-center gap-1">
                                 <button class="btn btn-sm bg-black text-white border-none text-lg" onclick="openUpdateModal(<?php echo $data['event_id']; ?>)"><i class="bx bx-edit"></i></button>    
-                                <a class="btn btn-sm bg-red-500 text-white border-none text-lg" href="./eventCRUD/delete.php?event_id=<?php echo $data['event_id']?>" ><i class="bx bx-trash"></i></a>
+                                <button class="btn btn-sm bg-red-500 text-white border-none text-lg" onclick="modalDelete(<?php echo $data['event_id']?>)" ><i class="bx bx-trash"></i></button>
                             </span> 
                         </th>
                     </tr>
@@ -148,20 +148,62 @@
     </dialog>
     <!-- END MODAL UPDATE -->
 
+    <!-- MODAL DELETE -->
+    <dialog id="delete_event_modal" class="modal">
+        <div class="modal-box bg-white text-black">
+            <h3 class="font-bold text-lg">Confirm Delete</h3>
+            <p class="py-4">Anda yakin untuk menghapus data?</p>
+            <div class="modal-action">
+                <button class="btn btn-outline mr-2" onclick="document.getElementById('delete_event_modal').close()">Cancel</button>
+                <button class="btn btn-error text-white" onclick="confirmEventDelete()">Delete</button>
+            </div>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+    <!-- END MODAL DELETE -->
+
 </div>
 
 <script>
-function openUpdateModal(informationId) {
-    document.getElementById('update_modal').showModal();
-    
-    // Use AJAX to load the form content
-    fetch('./informationCRUD/edit.php?id=' + informationId)
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('formContent').innerHTML = data;
-        })
-        .catch(error => console.error('Error:', error));
-}
+    // VARIABLE
+    let updateId;
+    let deleteId;
+
+    function openUpdateModal(informationId) {
+        document.getElementById('update_modal').showModal();
+        
+        // Use AJAX to load the form content
+        fetch('./informationCRUD/edit.php?id=' + informationId)
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('formContent').innerHTML = data;
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    // DELETE EVENT 
+    function modalDelete(eventId){
+        deleteId = eventId
+        document.getElementById('delete_event_modal').showModal();
+    }
+
+    function confirmEventDelete(){
+        if(deleteId){
+            fetch('./eventCRUD/delete.php?event_id=' + deleteId)
+                .then(response => response.json())
+                .then(data => {
+                    if(data.success){
+                        location.reload();
+                    } else {
+                        alert(data.message);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    }
+
 </script>
 
 <?php

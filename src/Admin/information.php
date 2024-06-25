@@ -10,16 +10,7 @@
     if (isset($_SESSION['alert'])) {
         $alertType = $_SESSION['alert']['type'];
         $alertMessage = $_SESSION['alert']['message'];
-        ?>
-        <div role="alert" class="alert alert-<?php echo $alertType; ?>">
-            <?php if ($alertType === 'success'): ?>
-                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-            <?php else: ?>
-                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-            <?php endif; ?>
-            <span><?php echo $alertMessage; ?></span>
-        </div>
-        <?php
+        
         // Clear the alert from the session
         unset($_SESSION['alert']);
     }
@@ -89,7 +80,7 @@
                         <th>
                             <span class="flex items-center justify-center gap-1">
                                 <button class="btn btn-sm bg-black text-white border-none text-lg" onclick="openUpdateModal(<?php echo $data['information_id']; ?>)"><i class="bx bx-edit"></i></button>    
-                                <a class="btn btn-sm bg-red-500 text-white border-none text-lg" href="./informationCRUD/delete.php?information_id=<?php echo $data['information_id']?>" ><i class="bx bx-trash"></i></a>
+                                <button class="btn btn-sm bg-red-500 text-white border-none text-lg" onclick="deleteInformation(<?php echo $data['information_id']?>)"><i class="bx bx-trash"></i></button>
                             </span> 
                         </th>
                     </tr>
@@ -150,6 +141,22 @@
     </dialog>
     <!-- END MODAL UPDATE -->
 
+    <!-- MODAL DELETE -->
+    <dialog id="delete_information_modal" class="modal">
+        <div class="modal-box bg-white text-black">
+            <h3 class="font-bold text-lg">Confirm Delete</h3>
+            <p class="py-4">Anda yakin untuk menghapus data?</p>
+            <div class="modal-action">
+                <button class="btn btn-outline mr-2" onclick="document.getElementById('delete_information_modal').close()">Cancel</button>
+                <button class="btn btn-error text-white" onclick="confirmDelete()">Delete</button>
+            </div>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+    <!-- END MODAL DELETE -->
+
 </div>
 
 <script>
@@ -159,10 +166,12 @@
     }
 
     let updateId;
+    let deleteId;
 
+
+    // BUKA MODAL UPDATE
     function openUpdateModal(informationId) {
         updateId = informationId;
-
         document.getElementById('update_modal').showModal();
         
         // Use AJAX to load the form content
@@ -174,6 +183,8 @@
             .catch(error => console.error('Error:', error));
     }
 
+
+    // UPDATE INFORMATION
     function updateInformation() {
         const form = document.getElementById('updateForm');
         const formData = new FormData(form);
@@ -207,11 +218,30 @@
         });
     }
 
+
+    // DELETE INFORMATION
+    function deleteInformation(getIformationID){
+        deleteId = getIformationID;
+        document.getElementById('delete_information_modal').showModal();
+    }
+
+
+    function confirmDelete(){
+        if (deleteId) {
+            fetch('./informationCRUD/delete.php?information_id=' + deleteId)
+                .then(response => response.text())
+                .then(data => {
+                    console.log(data);
+                    closeModal();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+    }
+
 </script>
 
 <?php
     include '../Layout/Admin/_bottom.php';
 ?>
-
-
-
