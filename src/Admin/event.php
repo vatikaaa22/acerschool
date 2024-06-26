@@ -64,6 +64,14 @@
 
                 $no = 1;
 
+                if( mysqli_num_rows($query) == 0){
+                    echo "<tbody>";
+                    echo "<tr>";
+                    echo "<td colspan='4' class='text-center'>No Event found.</td>";    
+                    echo "</tr>";
+                    echo "</tbody>";
+                }
+
                 while($data = mysqli_fetch_array($query)){
             ?>
                     <!-- row 1 -->
@@ -139,7 +147,7 @@
                 <!-- NANTI BERISI CONTENT -->
             </div>
             <div class="flex justify-end mt-4">
-                <button class="btn text-white w-36">Save</button>
+                <button class="btn text-white w-36" onclick="updateEvent()">Save</button>
             </div>
         </form>
         <form method="dialog" class="modal-backdrop">
@@ -168,30 +176,59 @@
 
 <script>
     // VARIABLE
-    let updateId;
-    let deleteId;
+    let updateEventId;
+    let deleteEventId;
 
-    function openUpdateModal(informationId) {
+    // UPDATE EVENT
+    function openUpdateModal(eventId) {
+        updateEventId = eventId;
+
         document.getElementById('update_modal').showModal();
         
         // Use AJAX to load the form content
-        fetch('./informationCRUD/edit.php?id=' + informationId)
+        fetch('./eventCRUD/edit.php?id=' + eventId)
             .then(response => response.text())
             .then(data => {
                 document.getElementById('formContent').innerHTML = data;
             })
             .catch(error => console.error('Error:', error));
     }
+    
+    function updateEvent(){
+
+        if(updateEventId){
+            let form = document.getElementById('updateForm');
+            let formData = new FormData(form);
+
+            formData.append('event_id', updateEventId);
+
+            console.log(updateEventId);
+
+            // fetch('./eventCRUD/update.php', {
+            //     method: 'POST',
+            //     body: formData
+            // })
+            //     .then(response => response.json())
+            //     .then(data => {
+            //         if(data.success){
+            //             location.reload();
+            //         } else {
+            //             alert(data.message);
+            //         }
+            //     })
+            //     .catch(error => console.error('Error:', error));
+        }
+    }
 
     // DELETE EVENT 
     function modalDelete(eventId){
-        deleteId = eventId
+        deleteEventId = eventId
         document.getElementById('delete_event_modal').showModal();
     }
 
     function confirmEventDelete(){
-        if(deleteId){
-            fetch('./eventCRUD/delete.php?event_id=' + deleteId)
+        if(deleteEventId){
+            fetch('./eventCRUD/delete.php?event_id=' + deleteEventId)
                 .then(response => response.json())
                 .then(data => {
                     if(data.success){
@@ -200,7 +237,7 @@
                         alert(data.message);
                     }
                 })
-                .catch(error => console.error('Error:', error));
+                .catch(error => console.error('Error:', error), location.reload());
         }
     }
 

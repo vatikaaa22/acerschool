@@ -64,6 +64,14 @@
                             $result = $stmt->get_result();
         
                             $no = 1;
+
+                            if ($result->num_rows == 0) {
+                                echo "<tbody>";
+                                echo "<tr>";
+                                echo "<td colspan='5' class='text-center'>No Data.</td>";    
+                                echo "</tr>";
+                                echo "</tbody>";
+                            }
         
                             while ($data = $result->fetch_assoc()) {
                         ?>
@@ -138,6 +146,14 @@
 
                                 $no = 1;
 
+                                if ($result->num_rows == 0) {
+                                    echo "<tbody>";
+                                    echo "<tr>";
+                                    echo "<td colspan='5' class='text-center'>No Data.</td>";    
+                                    echo "</tr>";
+                                    echo "</tbody>";
+                                }
+
                                 while ($data = $result->fetch_assoc()) {
                             ?>
                                     <tr>
@@ -204,6 +220,14 @@
                                 $result = $connection->query($sql);
 
                                 $no = 1;
+
+                                if ($result->num_rows == 0) {
+                                    echo "<tbody>";
+                                    echo "<tr>";
+                                    echo "<td colspan='5' class='text-center'>No Data.</td>";    
+                                    echo "</tr>";
+                                    echo "</tbody>";
+                                }
 
                                 while ($data = $result->fetch_assoc()) {
                             ?>

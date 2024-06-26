@@ -65,6 +65,14 @@
 
                 $no = 1;
 
+                if( mysqli_num_rows($query) == 0){
+                    echo "<tbody>";
+                    echo "<tr>";
+                    echo "<td colspan='5' class='text-center'>No Fasilitas found.</td>";    
+                    echo "</tr>";
+                    echo "</tbody>";
+                }
+
                 while($data = mysqli_fetch_array($query)){
             ?>
                     <tr>

@@ -57,6 +57,14 @@
 
                 $no = 1;
 
+                if( mysqli_num_rows($query) == 0){
+                    echo "<tbody>";
+                    echo "<tr>";
+                    echo "<td colspan='6' class='text-center'>No Information found.</td>";    
+                    echo "</tr>";
+                    echo "</tbody>";
+                }
+
                 while($data = mysqli_fetch_array($query)){
             ?>
                     <!-- row 1 -->
@@ -160,10 +168,6 @@
 </div>
 
 <script>
-
-    toastr.options = {
-        "progressbar" :true
-    }
 
     let updateId;
     let deleteId;
