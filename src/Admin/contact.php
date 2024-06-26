@@ -6,9 +6,9 @@
     <!-- Page content here -->
     <div class="grid items-center ps-[20rem] pt-[7rem]">
         <div role="tablist" class="tabs tabs-bordered">
-            <!-- phone -->
-            <input type="radio" name="my_tabs_1" role="tab" class="tab" aria-label="Number" onclick="initializeCheck(1)" id="tab1"/>
-            <div role="tabpanel" class="tab-content p-5">
+                <!-- phone -->
+                <input type="radio" name="my_tabs_1" role="tab" class="tab" aria-label="Number" onclick="initializeCheck(1)" id="tab1"/>
+                <div role="tabpanel" class="tab-content p-5">
 
                 <span class="flex items-center justify-between mb-5">
                     <!-- ADD PHONE -->
@@ -89,7 +89,7 @@
                                     <td><?php echo $data['number']?></td>
                                     <td class="flex gap-1 items-center">
                                         <label>
-                                            <input type="checkbox" class="checkbox" <?php echo $data['default'] == 1 ? 'checked' : ''; ?>  />
+                                            <input type="checkbox" class="checkbox" <?php echo $data['isDefault'] == 1 ? 'checked' : ''; ?>  />
                                         </label>
                                         <p class="mb-2">
                                             Yes
@@ -97,7 +97,7 @@
                                     </td>
                                     <th>
                                         <span class="flex items-center justify-center gap-1">
-                                            <button class="btn btn-sm bg-black text-white border-none text-lg" onclick="openUpdateModal(<?php echo $data['default']; ?>, <?php echo $data['phone_id']; ?>)"><i class="bx bx-edit"></i></button>
+                                            <button class="btn btn-sm bg-black text-white border-none text-lg" onclick="openUpdateModal(<?php echo $data['isDefault']; ?>, <?php echo $data['phone_id']; ?>)"><i class="bx bx-edit"></i></button>
                                             <a class="btn btn-sm bg-red-500 text-white border-none text-lg" href="./contactCRUD/number/delete.php?phone_id=<?php echo $data['phone_id']?>" ><i class="bx bx-trash"></i></a>
                                         </span> 
                                     </th>
@@ -113,8 +113,8 @@
                 
             </div>
             
-            <!-- email -->
-            <input type="radio" name="my_tabs_1" role="tab" class="tab" aria-label="Email"  onclick="initializeCheck(2)" id="tab2"/>
+                <!-- email -->
+                <input type="radio" name="my_tabs_1" role="tab" class="tab" aria-label="Email"  onclick="initializeCheck(2)" id="tab2"/>
                 <div role="tabpanel" class="tab-content p-5">
 
                     <span class="flex items-center justify-between mb-5">
@@ -163,7 +163,7 @@
                                         <td><?php echo $data["email"] ?></td>
                                         <td class="flex gap-1 items-center">
                                             <label>
-                                                <input type="checkbox" class="checkbox" <?php echo $data["default"] == 0 ? "" : "active"; ?>/>
+                                                <input type="checkbox" class="checkbox" <?php echo $data["isDefault"] == 0 ? "" : "active"; ?>/>
                                             </label>
                                             <p class="mb-2">
                                                 Yes
@@ -171,7 +171,7 @@
                                         </td>
                                         <th>
                                             <span class="flex items-center justify-center gap-1">
-                                                <button class="btn btn-sm bg-black text-white border-none text-lg" ><i class="bx bx-edit"></i></button>
+                                                <button class="btn btn-sm bg-black text-white border-none text-lg" onclick="openUpdateEmailModal(<?php echo $data['isDefault']; ?>, <?php echo $data['email_id']; ?>)"><i class="bx bx-edit"></i></button>
                                                 <a class="btn btn-sm bg-red-500 text-white border-none text-lg" href="./contactCRUD/email/delete.php?email_id=<?php echo $data['email_id']?>" ><i class="bx bx-trash"></i></a>
                                             </span> 
                                         </th>
@@ -208,7 +208,8 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Address</th>
-                                    <th>Default</th>
+                                    <th>Address Detail</th>
+                                    <th class="text-center">Default</th>
                                     <th class="text-center">Action</th>
                                 </tr>
                             </thead>
@@ -224,7 +225,7 @@
                                 if ($result->num_rows == 0) {
                                     echo "<tbody>";
                                     echo "<tr>";
-                                    echo "<td colspan='5' class='text-center'>No Data.</td>";    
+                                    echo "<td colspan='6' class='text-center'>No Data.</td>";    
                                     echo "</tr>";
                                     echo "</tbody>";
                                 }
@@ -237,9 +238,10 @@
                                             <span class="text-sm"><?php echo $no ?></span>
                                         </th>
                                         <td><?php echo $data['address_name'] ?></td>
+                                        <td><?php echo $data['address_info'] ?></td>
                                         <td class="flex gap-1 items-center">
                                             <label>
-                                                <input type="checkbox" class="checkbox"  <?php echo $data["default"] == 0 ? "" : "active"; ?> />
+                                                <input type="checkbox" class="checkbox"  <?php echo $data["isDefault"] == 0 ? "" : "active"; ?> />
                                             </label>
                                             <p class="mb-2">
                                                 Yes
@@ -247,7 +249,7 @@
                                         </td>
                                         <th>
                                             <span class="flex items-center justify-center gap-1">
-                                                <button class="btn btn-sm bg-black text-white border-none text-lg" onclick="document.getElementById('update_modal').showModal()"><i class="bx bx-edit"></i></button>
+                                                <button class="btn btn-sm bg-black text-white border-none text-lg" onclick="openUpdateAddressModal(<?php echo $data['isDefault']; ?>, <?php echo $data['address_id']; ?>)"><i class="bx bx-edit"></i></button>
                                                 <a class="btn btn-sm bg-red-500 text-white border-none text-lg" href="./contactCRUD/address/delete.php?address_id=<?php echo $data['address_id']?>" ><i class="bx bx-trash"></i></a>
                                             </span> 
                                         </th>
@@ -267,6 +269,7 @@
         </div>
     </div>
 
+        <!-- ADD -->
         <!-- MODAL NUMBER -->
         <dialog id="number_add_modal" class="modal">
             <form action="./contactCRUD/number/create.php" class="mb-10 border w-[40rem] shadow-md py-5 px-10 mt-4 rounded-box bg-gray-100 modal-box text-black" enctype="multipart/form-data" method="POST">
@@ -319,10 +322,15 @@
             <form action="./contactCRUD/address/create.php" class="mb-10 border w-[40rem] shadow-md py-5 px-10 mt-4 rounded-box bg-gray-100 modal-box text-black" method="POST">
                     <h1 class="text-2xl font-bold text-black">Add Address</h1>
         
-                    <span class="flex flex-col mt-5">
-                                <label for="address" class="text-lg font-semibold text-black">Address</label>
+                    <span class="flex flex-col my-5">
+                                <label for="address" class="text-lg font-semibold text-black">Address Name</label>
                                 <input type="text" name="address_name" id="address" class="input input-bordered bg-white" placeholder="Enter address" required />
                     </span>
+
+                    <div class="flex flex-col">
+                                <label for="address_info" class="text-lg font-semibold text-black">Address Detail</label>
+                                <textarea name="address_info" id="address_info" class="input input-bordered bg-white h-40 py-1" placeholder="Enter Address"></textarea>
+                    </div>
                     <div class="flex justify-end mt-4">
                         <button class="btn text-white w-36" type="sumbit">Save</button>
                     </div>
@@ -333,8 +341,10 @@
             </form>
         </dialog>
         <!-- END MODAL ADDRESS -->
+        <!-- END ADD -->
 
 
+        <!-- UPDATE -->
         <!-- UPDATE DEFAULT NUMBER -->
         <dialog id="update_number_modal" class="modal text-black">
             <div class="modal-box bg-white">
@@ -343,7 +353,7 @@
                 <div class="modal-action">
                     <form method="dialog">
                         <button class="btn btn-outline mr-2 text-black">Cancel</button>
-                        <button onclick="updateDefault()" class="btn btn-info text-white">Yes</button>
+                        <button onclick="updateDefault()" class="btn btn-base-200 text-white">Yes</button>
                     </form>
                 </div>
             </div>
@@ -352,22 +362,84 @@
             </form>
         </dialog>
 
+        <!-- UPDATE DEFAULT EMAIL -->
+        <dialog id="update_email_modal" class="modal text-black">
+            <div class="modal-box bg-white">
+                <h3 class="font-bold text-lg">Edit Default?</h3>
+                <p class="py-4">Apakah anda yakin untuk mengubahnya ?</p>
+                <div class="modal-action">
+                    <form method="dialog">
+                        <button class="btn btn-outline mr-2 text-black">Cancel</button>
+                        <button onclick="updateEmailDefault()" class="btn btn-base-200 text-white">Yes</button>
+                    </form>
+                </div>
+            </div>
+            <form method="dialog" class="modal-backdrop">
+                <button>close</button>
+            </form>
+        </dialog>
+
+        <!-- UPDATE DEFAULT EMAIL -->
+        <dialog id="update_email_modal" class="modal text-black">
+            <div class="modal-box bg-white">
+                <h3 class="font-bold text-lg">Edit Default?</h3>
+                <p class="py-4">Apakah anda yakin untuk mengubahnya ?</p>
+                <div class="modal-action">
+                    <form method="dialog">
+                        <button class="btn btn-outline mr-2 text-black">Cancel</button>
+                        <button onclick="updateAddressDefault()" class="btn btn-base-200 text-white">Yes</button>
+                    </form>
+                </div>
+            </div>
+            <form method="dialog" class="modal-backdrop">
+                <button>close</button>
+            </form>
+        </dialog>
+        <!-- END UPDATE -->
+
+
+        <!-- DELETE -->
+        <!-- END DELETE -->
+
+
 
 
         <script>
+            // MODAL UPDATE
             function openUpdateModal(defaultId, id) {
                 window.currentDefaultId = defaultId;
                 window.currentId = id;
                 document.getElementById('update_number_modal').showModal();
             }
+            function openUpdateEmailModal(defaultId, id) {
+                window.currentDefaultId = defaultId;
+                window.currentId = id;
+                document.getElementById('update_email_modal').showModal();
+            }
+            function openUpdateAddressModal(defaultId, id) {
+                window.currentDefaultId = defaultId;
+                window.currentId = id;
+                document.getElementById('update_address_modal').showModal();
+            }
 
+            // UPDATE DATA
             function updateDefault() {
-                
                 if (window.currentId) {
                     window.location.href = `./contactCRUD/number/update.php?default=${window.currentDefaultId}&id=${window.currentId}`;
                 }
             }
+            function updateEmailDefault() {
+                if (window.currentId) {
+                    window.location.href = `./contactCRUD/email/update.php?default=${window.currentDefaultId}&id=${window.currentId}`;
+                }
+            }
+            function updateAddressDefault() {
+                if (window.currentId) {
+                    window.location.href = `./contactCRUD/address/update.php?default=${window.currentDefaultId}&id=${window.currentId}`;
+                }
+            }
 
+            // CHECKBOX
             function initializeCheck(id) {
                 localStorage.setItem('selectedTab', id);
             }

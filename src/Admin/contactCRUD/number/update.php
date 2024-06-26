@@ -7,7 +7,7 @@ if (isset($_GET['default'], $_GET['id'])) {
 
     $newDefaultValue = $defaultValue == 1 ? 0 : 1;
     
-    $stmt = $connection->prepare("UPDATE phones SET `default` = ? WHERE phone_id = ?");
+    $stmt = $connection->prepare("UPDATE phones SET `isDefault` = ? WHERE phone_id = ?");
     $stmt->bind_param("ii", $newDefaultValue, $id);
     $stmt->execute();
 
