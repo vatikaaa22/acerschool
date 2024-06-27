@@ -240,6 +240,8 @@
                 })
                 .catch(error => {
                     console.error('Error:', error);
+                    window.location.reload();
+                    closeModal();
                 });
         }
     }
@@ -249,3 +251,5 @@
 <?php
     include '../Layout/Admin/_bottom.php';
 ?>
+
+

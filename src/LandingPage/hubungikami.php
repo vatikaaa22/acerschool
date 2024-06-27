@@ -54,20 +54,22 @@
                     
                     $query = mysqli_query($connection, $sql);
                     
-                    if(mysqli_fetch_array($query)){
+                    $data = mysqli_fetch_array($query);
 
-                        while($data = mysqli_fetch_array($query)){
+                if($data){
+                    do{
                 ?>
-                <p><span class="font-semibold"><?php echo $data["address_name"]?></span> : <br/><?php echo $data["address_info"]?></p>
+                    <p><span class="font-semibold"><?php echo $data["address_name"]?></span> : <br/><?php echo $data["address_info"]?></p>
+
                 <?php 
-                        }
-                    }else{
+                    } while($data = mysqli_fetch_array($query)); 
+                }else{
                 ?>
                     <span class="text-center">
-                        <p><span class="font-semibold">Tidak Ada DATA</p>
+                        <p><span class="font-semibold">Tidak Ada DATA</span></p>
                     </span>
                 <?php 
-                    }
+                }
                 ?>
             </div>
             <!-- END ALAMAT -->
@@ -82,27 +84,27 @@
 
                 <span class="text-center">
                 <?php 
-                    include "../../helper/connection.php";
+                include "../../helper/connection.php";
 
-                    $sql = "SELECT * FROM phones WHERE `isDefault` = 1 LIMIT 3";
-                    
-                    $query = mysqli_query($connection, $sql);
-                    
-                    if(mysqli_fetch_array($query)){
+                $sql = "SELECT * FROM phones WHERE isDefault = 1 LIMIT 2";
 
-                        while($data = mysqli_fetch_array($query)){
+                $query = mysqli_query($connection, $sql);
+
+                $data = mysqli_fetch_array($query);
+
+                if($data){
+                    do{
                 ?>
-                    <p><span class="font-semibold"><?php echo $data["username"]?></span> : <?php echo $data["number"]?></p>
+                        <p><span class="font-semibold text-white"><?php echo $data["username"]?></span> : <?php echo $data["number"]?> </p>
                 <?php 
-                        }
-                    }else{
+                    } while($data = mysqli_fetch_array($query)); 
+                }else{
                 ?>
-                    <span class="text-center mt-20">
-                        <p><span class="font-semibold">Tidak Ada DATA</p>
+                    <span class="text-center">
+                        <p><span class="font-semibold">Tidak Ada DATA</span></p>
                     </span>
-
                 <?php 
-                    }
+                }
                 ?>
                 </span>
             </div>
@@ -118,28 +120,28 @@
                 <?php 
                     include "../../helper/connection.php";
 
-                    $sql = "SELECT * FROM emails WHERE `isDefault` = 1 LIMIT 2";
+                    $sql = "SELECT * FROM emails WHERE `isDefault` = 1 LIMIT 3";
                     
                     $query = mysqli_query($connection, $sql);
-                    $no = 0;
-                    
-                    if(mysqli_fetch_array($query)){
 
-                        while($data = mysqli_fetch_array($query)){
+
+                    $data = mysqli_fetch_array($query);
+
+                if($data){
+                    do{
                 ?>
-                <p><span class="font-semibold"><?php echo "Email". $no ?></span> : <br/> <?php echo $data["email"]?></p>
+                    <p><span class="font-semibold"><?php echo "Email". $no ?></span> : <br/> <?php echo $data["email"]?></p>
                 <?php 
-                            $no++;
-                        }
-                    }else{
+                    } while($data = mysqli_fetch_array($query)); 
+                }else{
                 ?>
                     <span class="text-center">
-                        <p><span class="font-semibold">Tidak Ada DATA</p>
+                        <p><span class="font-semibold">Tidak Ada DATA</span></p>
                     </span>
-
                 <?php 
-                    }
+                }
                 ?>
+                
             </div>
             <!-- END EMAIL -->
         </span>
