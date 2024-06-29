@@ -50,7 +50,7 @@
                 <?php 
                     include "../../helper/connection.php";
 
-                    $sql = "SELECT * FROM address WHERE `isDefault` = 1 LIMIT 2";
+                    $sql = "SELECT * FROM address WHERE `isDefault` = 1 LIMIT 1";
                     
                     $query = mysqli_query($connection, $sql);
                     
@@ -59,7 +59,7 @@
                 if($data){
                     do{
                 ?>
-                    <p><span class="font-semibold"><?php echo $data["address_name"]?></span> : <br/><?php echo $data["address_info"]?></p>
+                    <p><span class="font-semibold text-white"><?php echo $data["address_name"]?></span> : <br/><?php echo $data["address_info"]?></p>
 
                 <?php 
                     } while($data = mysqli_fetch_array($query)); 
@@ -120,18 +120,22 @@
                 <?php 
                     include "../../helper/connection.php";
 
-                    $sql = "SELECT * FROM emails WHERE `isDefault` = 1 LIMIT 3";
+                    $sql = "SELECT * FROM emails WHERE `isDefault` = 1 LIMIT 2";
                     
                     $query = mysqli_query($connection, $sql);
 
 
                     $data = mysqli_fetch_array($query);
+                    $no = 1;
 
                 if($data){
                     do{
                 ?>
-                    <p><span class="font-semibold"><?php echo "Email". $no ?></span> : <br/> <?php echo $data["email"]?></p>
+                    <p><span class="font-semibold text-white"><?php echo "Email ". $no ?></span> : <br/><p class="text-center">
+                        <?php echo $data["email"]?>
+                    </p></p>
                 <?php 
+                    $no++;
                     } while($data = mysqli_fetch_array($query)); 
                 }else{
                 ?>

@@ -75,7 +75,7 @@
                         <td>
                                 <div>
                                     <div class="font-bold"><?php echo $data['title'] ?></div>
-                                    <div class="text-sm opacity-50">United States</div>
+                                    <div class="text-sm opacity-50">Berita terkini</div>
                                 </div>
                             </div>
                         <td>

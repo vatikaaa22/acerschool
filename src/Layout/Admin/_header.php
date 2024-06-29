@@ -61,6 +61,12 @@
                                 </a>
                             </li>
                             <li>
+                                <a href="../Admin/eskul.php" class="btn border-none hover:text-white <?php echo isActive('Admin/eskul.php'); ?>">
+                                    <i class='bx bxs-graduation'></i>
+                                    EKSKUL
+                                </a>
+                            </li>
+                            <li>
                                 <a href="../Admin/contact.php" class="btn border-none hover:text-white <?php echo isActive('Admin/contact.php'); ?>">
                                     <i class='bx bx-phone'></i>
                                     Contact

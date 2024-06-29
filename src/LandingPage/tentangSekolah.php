@@ -28,385 +28,103 @@ require_once '../layout/_top.php';
     </div>
 </div>
 
+
+<!-- EVENT SEKOLAH -->
 <div class="py-10">
     <h1 class="text-center font-bold text-3xl pb-10">&mdash; Accer High School Event &mdash;</h1>
 
     <div class="flex justify-center items-center gap-5 px-10 flex-wrap">
-        <div class="card w-96 shadow-xl bg-gray-800 opacity-80 text-white" data-aos="zoom-out">
-            <div class="card-body ">
-                <h2 class="text-3xl font-bold text-center mb-5">
-                    Januari
-                </h2>
-                <span class="flex items-center justify-center flex-col min-h-[5rem]">
+        
+        <?php
+            include '../../helper/connection.php';
 
-                <?php
-                    include '../../helper/connection.php';
-        
-                    $sql = "SELECT * FROM events where event_date like '%Januari%'";
-                    $query = mysqli_query($connection, $sql);
-        
-                    $no = 1;
-        
-                    if(mysqli_num_rows($query) == 0){
+            $test = "SELECT * FROM events";
+            $test_query = mysqli_query($connection, $test);
+
+            if(mysqli_num_rows($test_query) == 0){
+                echo "<h2 class='text-3xl font-bold text-center my-10 text-white'>
+                        Tidak Ada Event
+                    </h2>";
+            }
+
+            // Query untuk mengambil semua bulan unik yang memiliki event
+            $sql_months = "SELECT DISTINCT DATE_FORMAT(event_date, '%m') as month, DATE_FORMAT(event_date, '%M') as month_name FROM events ORDER BY month";
+            $query_months = mysqli_query($connection, $sql_months);
+
+            while($month = mysqli_fetch_array($query_months)) {
+                $current_month = $month['month'];
+                $month_name = $month['month_name'];
+
+                // Query untuk mengambil event pada bulan ini
+                $sql_events = "SELECT * FROM events WHERE DATE_FORMAT(event_date, '%m') = '$current_month'";
+                $query_events = mysqli_query($connection, $sql_events);
+            ?>
+
+            <div class="card w-96 shadow-xl bg-gray-800 opacity-80 text-white" data-aos="zoom-out">
+                <div class="card-body ">
+                    <h2 class="text-3xl font-bold text-center mb-5">
+                        <?php echo $month_name; ?>
+                    </h2>
+                    <span class="flex items-center justify-center flex-col min-h-[5rem]">
+                    <?php
+                    if(mysqli_num_rows($query_events) == 0){
                         echo "<span class='min-h-[5rem] flex items-center justify-center'>
                         <h1 class='text-center text-lg font-semibold'>Tidak Ada Event</h1>
                         </span>";
+                    } else {
+                        while($data = mysqli_fetch_array($query_events)){
+                    ?>
+                    <span class="flex gap-2">
+                        <p class="text-center"><span class="font-semibold">[ <?php echo $data['event_date'] ?> ] </span> - <?php echo $data["name"]?></p>
+                    </span>
+                    <?php
+                        }
                     }
-        
-                    while($data = mysqli_fetch_array($query)){
-                ?>
-                <h1 class="text-center"><?php echo $data["name"]?></h1>
-
-                <?php
-                    }
-                ?>
-                </span>
+                    ?>
+                    </span>
+                </div>
             </div>
-        </div>
-        
-        <div class="card w-96 shadow-xl bg-gray-800 opacity-80 text-white" data-aos="zoom-out">
-            <div class="card-body ">
-                <h2 class="text-center text-3xl font-bold mb-5">
-                    Febuari
-                </h2>
-                <span class="flex items-center justify-center flex-col min-h-[5rem]">
-                <?php
-                    include '../../helper/connection.php';
-        
-                    $sql = "SELECT * FROM events where event_date like '%Febuari%'";
-                    $query = mysqli_query($connection, $sql);
-        
-                    $no = 1;
-        
-                    if(mysqli_num_rows($query) == 0){
-                        echo "<span class='min-h-[5rem] flex items-center justify-center'>
-                        <h1 class='text-center text-lg font-semibold'>Tidak Ada Event</h1>
-                        </span>";
-                    }
-        
-                    while($data = mysqli_fetch_array($query)){
-                ?>
-                    <h1 class="text-center"><?php echo $data["name"]?></h1>
 
-                <?php
-                    }
-                ?>
-                </span>
-            </div>
-        </div>
-        
-        <div class="card w-96 shadow-xl bg-gray-800 opacity-80 text-white" data-aos="zoom-out">
-            <div class="card-body ">
-                <h2 class="text-center text-3xl font-bold mb-5">
-                    Maret
-                </h2>
-                <span class="flex items-center justify-center flex-col min-h-[5rem]">
-                <?php
-                    include '../../helper/connection.php';
-        
-                    $sql = "SELECT * FROM events where event_date like '%Maret%'";
-                    $query = mysqli_query($connection, $sql);
-        
-                    $no = 1;
-        
-                    if(mysqli_num_rows($query) == 0){
-                        echo "<span class='min-h-[5rem] flex items-center justify-center'>
-                        <h1 class='text-center text-lg font-semibold'>Tidak Ada Event</h1>
-                        </span>";
-                    }
-        
-                    while($data = mysqli_fetch_array($query)){
-                ?>
-                    <h1 class="text-center"><?php echo $data["name"]?></h1>
-
-                <?php
-                    }
-                ?>
-                </span>
-            </div>
-        </div>
-        
-        <div class="card w-96 shadow-xl bg-gray-800 opacity-80 text-white" data-aos="zoom-out">
-            <div class="card-body ">
-                <h2 class="text-center text-3xl font-bold mb-5">
-                    April
-                </h2>
-                <span class="flex items-center justify-center flex-col min-h-[5rem]">
-                <?php
-                    include '../../helper/connection.php';
-        
-                    $sql = "SELECT * FROM events where event_date like '%April%'";
-                    $query = mysqli_query($connection, $sql);
-        
-                    $no = 1;
-        
-                    if(mysqli_num_rows($query) == 0){
-                        echo "<span class='min-h-[5rem] flex items-center justify-center'>
-                        <h1 class='text-center text-lg font-semibold'>Tidak Ada Event</h1>
-                        </span>";
-                    }
-        
-                    while($data = mysqli_fetch_array($query)){
-                ?>
-                    <h1 class="text-center"><?php echo $data["name"]?></h1>
-
-                <?php
-                    }
-                ?>
-                </span>
-            </div>
-        </div>
-        
-        <div class="card w-96 shadow-xl bg-gray-800 opacity-80 text-white" data-aos="zoom-out">
-            <div class="card-body ">
-                <h2 class="text-center text-3xl font-bold mb-5">
-                    Mei
-                </h2>
-                <span class="flex items-center justify-center flex-col min-h-[5rem]">
-                <?php
-                    include '../../helper/connection.php';
-        
-                    $sql = "SELECT * FROM events where event_date like '%Mei%'";
-                    $query = mysqli_query($connection, $sql);
-        
-                    $no = 1;
-        
-                    if(mysqli_num_rows($query) == 0){
-                        echo "<span class='min-h-[5rem] flex items-center justify-center'>
-                        <h1 class='text-center text-lg font-semibold'>Tidak Ada Event</h1>
-                        </span>";
-                    }
-        
-                    while($data = mysqli_fetch_array($query)){
-                ?>
-                    <h1 class="text-center"><?php echo $data["name"]?></h1>
-
-                <?php
-                    }
-                ?>
-                </span>
-            </div>
-        </div>
-        
-        <div class="card w-96 shadow-xl bg-gray-800 opacity-80 text-white" data-aos="zoom-out">
-            <div class="card-body ">
-                <h2 class="text-center text-3xl font-bold mb-5">
-                    Juni
-                </h2>
-                <span class="flex items-center justify-center flex-col min-h-[5rem]">
-                <?php
-                    include '../../helper/connection.php';
-        
-                    $sql = "SELECT * FROM events where event_date like '%Juni%'";
-                    $query = mysqli_query($connection, $sql);
-        
-                    $no = 1;
-        
-                    if(mysqli_num_rows($query) == 0){
-                        echo "<span class='min-h-[5rem] flex items-center justify-center'>
-                        <h1 class='text-center text-lg font-semibold'>Tidak Ada Event</h1>
-                        </span>";
-                    }
-        
-                    while($data = mysqli_fetch_array($query)){
-                ?>
-                    <h1 class="text-center"><?php echo $data["name"]?></h1>
-
-                <?php
-                    }
-                ?>
-                </span>
-            </div>
-        </div>
-        
-        <div class="card w-96 shadow-xl bg-gray-800 opacity-80 text-white" data-aos="zoom-out">
-            <div class="card-body ">
-                <h2 class="text-center text-3xl font-bold mb-5">
-                    Juli
-                </h2>
-                <span class="flex items-center justify-center flex-col min-h-[5rem]">
-                <?php
-                    include '../../helper/connection.php';
-        
-                    $sql = "SELECT * FROM events where event_date like '%Juli%'";
-                    $query = mysqli_query($connection, $sql);
-        
-                    $no = 1;
-        
-                    if(mysqli_num_rows($query) == 0){
-                        echo "<span class='min-h-[5rem] flex items-center justify-center'>
-                        <h1 class='text-center text-lg font-semibold'>Tidak Ada Event</h1>
-                        </span>";
-                    }
-        
-                    while($data = mysqli_fetch_array($query)){
-                ?>
-                    <h1 class="text-center"><?php echo $data["name"]?></h1>
-
-                <?php
-                    }
-                ?>
-                </span>
-            </div>
-        </div>
-        
-        <div class="card w-96 shadow-xl bg-gray-800 opacity-80 text-white" data-aos="zoom-out">
-            <div class="card-body ">
-                <h2 class="text-center text-3xl font-bold mb-5">
-                    Agustus
-                </h2>
-                <span class="flex items-center justify-center flex-col min-h-[5rem]">
-                <?php
-                    include '../../helper/connection.php';
-        
-                    $sql = "SELECT * FROM events where event_date like '%Juni%'";
-                    $query = mysqli_query($connection, $sql);
-        
-                    $no = 1;
-        
-                    if(mysqli_num_rows($query) == 0){
-                        echo "<span class='min-h-[5rem] flex items-center justify-center'>
-                        <h1 class='text-center text-lg font-semibold'>Tidak Ada Event</h1>
-                        </span>";
-                    }
-        
-                    while($data = mysqli_fetch_array($query)){
-                ?>
-                    <h1 class="text-center"><?php echo $data["name"]?></h1>
-
-                <?php
-                    }
-                ?>
-                </span>
-            </div>
-        </div>
-        
-        <div class="card w-96 shadow-xl bg-gray-800 opacity-80 text-white" data-aos="zoom-out">
-            <div class="card-body ">
-                <h2 class="text-center text-3xl font-bold mb-5">
-                    September
-                </h2>
-                <span class="flex items-center justify-center flex-col min-h-[5rem]">
-                <?php
-                    include '../../helper/connection.php';
-        
-                    $sql = "SELECT * FROM events where event_date like '%September%'";
-                    $query = mysqli_query($connection, $sql);
-        
-                    $no = 1;
-        
-                    if(mysqli_num_rows($query) == 0){
-                        echo "<span class='min-h-[5rem] flex items-center justify-center'>
-                        <h1 class='text-center text-lg font-semibold'>Tidak Ada Event</h1>
-                        </span>";
-                    }
-        
-                    while($data = mysqli_fetch_array($query)){
-                ?>
-                    <h1 class="text-center"><?php echo $data["name"]?></h1>
-
-                <?php
-                    }
-                ?>
-                </span>
-            </div>
-        </div>
-        
-        <div class="card w-96 shadow-xl bg-gray-800 opacity-80 text-white" data-aos="zoom-out">
-            <div class="card-body ">
-                <h2 class="text-center text-3xl font-bold mb-5">
-                    Oktober
-                </h2>
-                <span class="flex items-center justify-center flex-col min-h-[5rem]">
-                <?php
-                    include '../../helper/connection.php';
-        
-                    $sql = "SELECT * FROM events where event_date like '%Oktober%'";
-                    $query = mysqli_query($connection, $sql);
-        
-                    $no = 1;
-        
-                    if(mysqli_num_rows($query) == 0){
-                        echo "<span class='min-h-[5rem] flex items-center justify-center'>
-                        <h1 class='text-center text-lg font-semibold'>Tidak Ada Event</h1>
-                        </span>";
-                    }
-        
-                    while($data = mysqli_fetch_array($query)){
-                ?>
-                    <h1 class="text-center"><?php echo $data["name"]?></h1>
-
-                <?php
-                    }
-                ?>
-                </span>
-            </div>
-        </div>
-        
-        <div class="card w-96 shadow-xl bg-gray-800 opacity-80 text-white" data-aos="zoom-out">
-            <div class="card-body ">
-                <h2 class="text-center text-3xl font-bold mb-5">
-                    November
-                </h2>
-                <span class="flex items-center justify-center flex-col min-h-[5rem]">
-                <?php
-                    include '../../helper/connection.php';
-        
-                    $sql = "SELECT * FROM events where event_date like '%November%'";
-                    $query = mysqli_query($connection, $sql);
-        
-                    $no = 1;
-        
-                    if(mysqli_num_rows($query) == 0){
-                        echo "<span class='min-h-[5rem] flex items-center justify-center'>
-                        <h1 class='text-center text-lg font-semibold'>Tidak Ada Event</h1>
-                        </span>";
-                    }
-        
-                    while($data = mysqli_fetch_array($query)){
-                ?>
-                    <h1 class="text-center"><?php echo $data["name"]?></h1>
-
-                <?php
-                    }
-                ?>
-                </span>
-            </div>
-        </div>
-        
-        <div class="card w-96 shadow-xl bg-gray-800 opacity-80 text-white" data-aos="zoom-out">
-            <div class="card-body ">
-                <h2 class="text-center text-3xl font-bold mb-5">
-                    Desember
-                </h2>
-                <span class="flex items-center justify-center flex-col min-h-[5rem]">
-                <?php
-                    include '../../helper/connection.php';
-        
-                    $sql = "SELECT * FROM events where event_date like '%Desember%'";
-                    $query = mysqli_query($connection, $sql);
-        
-                    $no = 1;
-        
-                    if(mysqli_num_rows($query) == 0){
-                        echo "<span class='min-h-[5rem] flex items-center justify-center'>
-                        <h1 class='text-center text-lg font-semibold'>Tidak Ada Event</h1>
-                        </span>";
-                    }
-        
-                    while($data = mysqli_fetch_array($query)){
-                ?>
-                    <h1 class="text-center"><?php echo $data["name"]?></h1>
-
-                <?php
-                    }
-                ?>
-                </span>
-            </div>
-        </div>
+            <?php
+            }
+            ?>
         
     </div>
 </div>
+<!-- END EVENT SEKOLAH -->
+
+<!-- ESKUL SEKOLAH -->
+<div class="py-10">
+    <h1 class="text-center font-bold text-3xl pb-10">&mdash; Ekstra Kurikuler &mdash;</h1>
+
+    <div class="flex justify-center gap-[10rem] px-[20rem] items-center flex-wrap">
+        
+        <?php
+            include '../../helper/connection.php';
+
+            $test = "SELECT * FROM eskuls";
+            $test_query = mysqli_query($connection, $test);
+
+            if(mysqli_num_rows($test_query) == 0){
+                echo "<h2 class='text-3xl font-bold text-center my-10 text-white'>
+                        Ekstra Kurikuler Belum Tersedia
+                    </h2>";
+            }
+
+            while($data = mysqli_fetch_array($test_query)) {
+            ?>
+                <div class="flex flex-col gap-5 items-center justify-center">
+                    <img src="../Admin/uploads/<?php echo $data["img"]; ?>" 
+                        class="w-[12rem] h-[12rem] rounded-full shadow-lg" alt="Accer High School" data-aos="zoom-out">
+                    <h1 class="text-xl font-semibold"><?php echo $data['title']?></h1>
+                </div>
+
+            <?php
+            }
+            ?>
+    </div>
+</div>
+<!-- END ESKUL SEKOLAH -->
 
 <?php
 require_once '../layout/_bottom.php';

@@ -8,12 +8,12 @@ require_once '../layout/_top.php';
                 <h1 class="text-5xl font-bold">Selamat Datang</h1>
                 <p class="text-xl">Website Accer High School</p>
                 <p class="py-6">Berdiri sejak 13 mei 2024 pukul 14:30 wib sleman Yogyakarta.</p>
-                <button class="btn text-white font-bold">Lihat lainnya !</button>
+                <a class="btn text-white font-bold" href="#berita" >Lihat lainnya !</a>
             </div>
         </div>
     </div>
 
-    <div class="w-full max-h-screen">
+    <div class="w-full max-h-screen" id="berita">
         <h1 class="text-white text-center font-bold text-3xl py-5 ">&mdash;  Berita dan Acara &mdash; </h1>
 
         <div class="flex items-center justify-center pt-5">

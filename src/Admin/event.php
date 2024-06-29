@@ -108,21 +108,10 @@
                     <h1 class="text-2xl font-bold text-black">Add information</h1>
         
                     <span class="grid gap-2 mt-5">
-                    <select class="select select-bordered w-full bg-white" name="event_date">
-                                <option disabled selected>Pilih Bulan</option>
-                                <option>Januari</option>
-                                <option>Febuari</option>
-                                <option>Maret</option>
-                                <option>April</option>
-                                <option>Mei</option>
-                                <option>Juni</option>
-                                <option>Juli</option>
-                                <option>Agustus</option>
-                                <option>September</option>
-                                <option>Oktober</option>
-                                <option>November</option>
-                                <option>Desember</option>
-                    </select>
+                        <div class="flex flex-col">
+                                <label for="date" class="text-lg font-semibold text-black">Date</label>
+                                <input type="date" name="date" id="date" class="input input-bordered bg-white" placeholder="Enter event date" />
+                        </div>
                         <div class="flex flex-col">
                                 <label for="name" class="text-lg font-semibold text-black">Name</label>
                                 <input type="text" name="name" id="name" class="input input-bordered bg-white" placeholder="Enter event name" />

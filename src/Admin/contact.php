@@ -48,7 +48,6 @@
         
                             $sql = "SELECT * FROM phones";
 
-                            // Append search conditions to the SQL query if a search term is provided
                             if (!empty($search)) {
                                 $sql .= " WHERE (username LIKE ? OR number LIKE ?)";
                             } 
@@ -98,7 +97,7 @@
                                     <th>
                                         <span class="flex items-center justify-center gap-1">
                                             <button class="btn btn-sm bg-black text-white border-none text-lg" onclick="openUpdateModal(<?php echo $data['isDefault']; ?>, <?php echo $data['phone_id']; ?>)"><i class="bx bx-edit"></i></button>
-                                            <a class="btn btn-sm bg-red-500 text-white border-none text-lg" href="./contactCRUD/number/delete.php?phone_id=<?php echo $data['phone_id']?>" ><i class="bx bx-trash"></i></a>
+                                            <button class="btn btn-sm bg-red-500 text-white border-none text-lg" onclick="openDeleteNumberModal(<?php echo $data['phone_id']; ?>)"><i class="bx bx-trash"></i></button>
                                         </span> 
                                     </th>
                                 </tr>
@@ -163,7 +162,7 @@
                                         <td><?php echo $data["email"] ?></td>
                                         <td class="flex gap-1 items-center">
                                             <label>
-                                                <input type="checkbox" class="checkbox" <?php echo $data["isDefault"] == 0 ? "" : "active"; ?>/>
+                                                <input type="checkbox" class="checkbox" <?php echo $data['isDefault'] == 1 ? 'checked' : ''; ?>  />
                                             </label>
                                             <p class="mb-2">
                                                 Yes
@@ -172,7 +171,7 @@
                                         <th>
                                             <span class="flex items-center justify-center gap-1">
                                                 <button class="btn btn-sm bg-black text-white border-none text-lg" onclick="openUpdateEmailModal(<?php echo $data['isDefault']; ?>, <?php echo $data['email_id']; ?>)"><i class="bx bx-edit"></i></button>
-                                                <a class="btn btn-sm bg-red-500 text-white border-none text-lg" href="./contactCRUD/email/delete.php?email_id=<?php echo $data['email_id']?>" ><i class="bx bx-trash"></i></a>
+                                                <button class="btn btn-sm bg-red-500 text-white border-none text-lg" onclick="openEmailModal(<?php echo $data['email_id']; ?>)" ><i class="bx bx-trash"></i></button>
                                             </span> 
                                         </th>
                                     </tr>
@@ -241,7 +240,7 @@
                                         <td><?php echo $data['address_info'] ?></td>
                                         <td class="flex gap-1 items-center">
                                             <label>
-                                                <input type="checkbox" class="checkbox"  <?php echo $data["isDefault"] == 0 ? "" : "active"; ?> />
+                                                <input type="checkbox" class="checkbox" <?php echo $data['isDefault'] == 1 ? 'checked' : ''; ?>  />
                                             </label>
                                             <p class="mb-2">
                                                 Yes
@@ -250,7 +249,7 @@
                                         <th>
                                             <span class="flex items-center justify-center gap-1">
                                                 <button class="btn btn-sm bg-black text-white border-none text-lg" onclick="openUpdateAddressModal(<?php echo $data['isDefault']; ?>, <?php echo $data['address_id']; ?>)"><i class="bx bx-edit"></i></button>
-                                                <a class="btn btn-sm bg-red-500 text-white border-none text-lg" href="./contactCRUD/address/delete.php?address_id=<?php echo $data['address_id']?>" ><i class="bx bx-trash"></i></a>
+                                                <button class="btn btn-sm bg-red-500 text-white border-none text-lg"  onclick="openAddressModal(<?php echo $data['address_id']; ?>)" ><i class="bx bx-trash"></i></button>
                                             </span> 
                                         </th>
                                     </tr>
@@ -379,8 +378,8 @@
             </form>
         </dialog>
 
-        <!-- UPDATE DEFAULT EMAIL -->
-        <dialog id="update_email_modal" class="modal text-black">
+        <!-- UPDATE DEFAULT ADDRESS -->
+        <dialog id="update_address_modal" class="modal text-black">
             <div class="modal-box bg-white">
                 <h3 class="font-bold text-lg">Edit Default?</h3>
                 <p class="py-4">Apakah anda yakin untuk mengubahnya ?</p>
@@ -399,6 +398,54 @@
 
 
         <!-- DELETE -->
+        <!-- DELETE NUMBER -->
+        <dialog id="delete_number_modal" class="modal">
+        <div class="modal-box bg-white text-black">
+            <h3 class="font-bold text-lg">Confirm Delete</h3>
+            <p class="py-4">Anda yakin untuk menghapus data?</p>
+            <div class="modal-action">
+                <button class="btn btn-outline mr-2" onclick="document.getElementById('delete_number_modal').close()">Cancel</button>
+                <button class="btn btn-error text-white" onclick="confirmNumberDelete()">Delete</button>
+            </div>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+        </dialog>
+        <!-- END DELETE NUMBER -->
+
+        <!-- DELETE EMAIL -->
+        <dialog id="delete_email_modal" class="modal">
+        <div class="modal-box bg-white text-black">
+            <h3 class="font-bold text-lg">Confirm Delete</h3>
+            <p class="py-4">Anda yakin untuk menghapus data?</p>
+            <div class="modal-action">
+                <button class="btn btn-outline mr-2" onclick="document.getElementById('delete_email_modal').close()">Cancel</button>
+                <button class="btn btn-error text-white" onclick="confirmEmailDelete()">Delete</button>
+            </div>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+        </dialog>
+        <!-- END DELETE EMAIL -->
+        
+        <!-- DELETE ADRESS -->
+        <dialog id="delete_address_modal" class="modal">
+        <div class="modal-box bg-white text-black">
+            <h3 class="font-bold text-lg">Confirm Delete</h3>
+            <p class="py-4">Anda yakin untuk menghapus data?</p>
+            <div class="modal-action">
+                <button class="btn btn-outline mr-2" onclick="document.getElementById('delete_address_modal').close()">Cancel</button>
+                <button class="btn btn-error text-white" onclick="confirmAddressDelete()">Delete</button>
+            </div>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+        </dialog>
+        <!-- END DELETE ADRESS -->
+
         <!-- END DELETE -->
 
 
@@ -459,6 +506,46 @@
                     tab3.checked = true;
                 }
             });
+
+
+            // DELETE
+            let numberID;
+            let emailID;
+            let adressID;
+
+            // NUMBER
+            function openDeleteNumberModal(id) {
+                numberID = id;
+                document.getElementById('delete_number_modal').showModal();
+            }
+
+            // NUMBER Delete
+            function confirmNumberDelete() {
+                window.location.href = `./contactCRUD/number/delete.php?phone_id=${numberID}`;
+            }
+
+            // EMAIL 
+            function openEmailModal(id) {
+                emailID = id;
+                document.getElementById('delete_email_modal').showModal();
+            }
+
+            // EMAIL DELETE
+            function confirmEmailDelete() {
+                window.location.href = `./contactCRUD/email/delete.php?email_id=${emailID}`;
+            }
+
+
+            // ADRESS
+            function openAddressModal(id) {
+                adressID = id;
+                document.getElementById('delete_address_modal').showModal();
+            }
+
+            // ADRESS DELETE
+            function confirmAddressDelete() {
+                window.location.href = `./contactCRUD/address/delete.php?address_id=${adressID}`;
+            }
 
         </script>
 

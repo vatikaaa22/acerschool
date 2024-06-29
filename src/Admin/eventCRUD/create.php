@@ -1,7 +1,7 @@
 <?php
     include "../../../helper/connection.php";
 
-    $event_date = $_POST["event_date"];
+    $event_date = $_POST["date"];
     $name = $_POST["name"];
 
     $event_date = mysqli_real_escape_string($connection, $event_date);

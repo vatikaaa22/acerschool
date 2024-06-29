@@ -22,7 +22,28 @@
 
                                     echo "<div class=\"card-actions flex items-center justify-center\">
                                             <a class=\"btn text-white\" href=\"./information.php\">Show Detail!</a>
-                                          </div>";
+                                        </div>";
+                                } else {
+                                    echo "<p class=\"text-center my-5\">Not have information</p>";
+                                }
+                            ?>
+                        </div>
+                    </div>
+
+                <div class="card bg-white text-black w-96 shadow-xl">
+                    <div class="card-body">
+                        <h2 class="card-title font-bold">EKSKUL</h2>
+                            <?php 
+                                $sql = "SELECT eskul_id, COUNT(eskul_id) AS total FROM eskuls GROUP BY eskul_id";
+                                $result = $connection->query($sql);
+                                $rowCount = $result->num_rows;
+
+                                if ($result->num_rows > 0) {
+                                    echo "<p class=\"text-center my-5 font-semibold text-lg\">On here have " . $rowCount . " EKSKUL </p>";
+
+                                    echo "<div class=\"card-actions flex items-center justify-center\">
+                                            <a class=\"btn text-white\" href=\"./eskul.php\">Show Detail!</a>
+                                        </div>";
                                 } else {
                                     echo "<p class=\"text-center my-5\">Not have information</p>";
                                 }
@@ -44,7 +65,7 @@
 
                                     echo "<div class=\"card-actions flex items-center justify-center\">
                                             <a class=\"btn text-white\" href=\"./fasilitas.php\">Show Detail!</a>
-                                          </div>";
+                                        </div>";
                                 } else {
                                     echo "<p class=\"text-center mt-5 mb-16\">Not have Faslitas</p>";
                                 }
@@ -70,7 +91,7 @@
 
                                     echo "<div class=\"card-actions flex items-center justify-center\">
                                             <a class=\"btn text-white\" href=\"./event.php\">Show Detail!</a>
-                                          </div>";
+                                        </div>";
                                 } else {
                                     echo "<p class=\"text-center my-5\">Not have Event</p>";
                                 }
@@ -91,7 +112,7 @@
 
                                     echo "<div class=\"card-actions flex items-center justify-center\">
                                             <a class=\"btn text-white\" href=\"./contact.php\">Show Detail!</a>
-                                          </div>";
+                                        </div>";
                                 } else {
                                     echo "<p class=\"text-center mt-5 mb-16\">Not have Event</p>";
                                 }
