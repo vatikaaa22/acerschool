@@ -4,19 +4,6 @@
     include '../Layout/Admin/_top.php';
 ?>
 
-
-<!-- ALERT -->
-<?php
-    if (isset($_SESSION['alert'])) {
-        $alertType = $_SESSION['alert']['type'];
-        $alertMessage = $_SESSION['alert']['message'];
-        
-        // Clear the alert from the session
-        unset($_SESSION['alert']);
-    }
-?>
-<!-- END ALERT -->
-
 <!-- Page content here -->
 <div class="grid items-center ps-[20rem] pt-[7rem]">
     <span class="flex items-center justify-between mb-5">
@@ -28,10 +15,12 @@
         <!-- END ADD INFORMATION -->
 
         <!-- SEARCH -->
-        <label class="input input-bordered flex items-center gap-2 bg-white xl:me-16 me:14 shadow-md text-black">
-            <input type="text" class="grow" placeholder="Search" />
-            <i class="bx bx-search"></i>
-        </label>
+        <form action="" method="GET" class="flex items-center">
+            <label class="input input-bordered flex items-center gap-2 bg-white me-10 shadow-md text-black">
+                <input type="text" name="search" class="grow" placeholder="Search by title" value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>" />
+                <button type="submit"><i class="bx bx-search"></i></button>
+            </label>
+        </form>
         <!-- END SEARCH -->
     </span>
     <div class="overflow-x-scroll max-w-[95rem] max-h-[48rem] border rounded-box shadow-md me-10">
@@ -52,20 +41,35 @@
             <?php
                 include '../../helper/connection.php';
 
+                $search = isset($_GET['search']) ? $_GET['search'] : '';
+        
                 $sql = "SELECT * FROM informations";
-                $query = mysqli_query($connection, $sql);
+
+                if (!empty($search)) {
+                    $sql .= " WHERE (title LIKE ?)";
+                } 
+
+                $stmt = $connection->prepare($sql);
+
+                if (!empty($search)) {
+                    $searchParam = "%$search%";
+                    $stmt->bind_param("s", $searchParam);
+                }
+
+                $stmt->execute();
+                $result = $stmt->get_result();
 
                 $no = 1;
 
-                if( mysqli_num_rows($query) == 0){
+                if ($result->num_rows == 0) {
                     echo "<tbody>";
                     echo "<tr>";
-                    echo "<td colspan='6' class='text-center'>No Information found.</td>";    
+                    echo "<td colspan='6' class='text-center'>No Data.</td>";    
                     echo "</tr>";
                     echo "</tbody>";
                 }
 
-                while($data = mysqli_fetch_array($query)){
+                while($data = $result->fetch_assoc()){
             ?>
                     <!-- row 1 -->
                     <tr>
@@ -75,7 +79,7 @@
                         <td>
                                 <div>
                                     <div class="font-bold"><?php echo $data['title'] ?></div>
-                                    <div class="text-sm opacity-50">Berita terkini</div>
+                                    <div class="text-sm opacity-50"><?php echo $data['location'] ?></div>
                                 </div>
                             </div>
                         <td>
@@ -251,5 +255,4 @@
 <?php
     include '../Layout/Admin/_bottom.php';
 ?>
-
 

@@ -4,44 +4,15 @@
     include '../Layout/Admin/_top.php';
 ?>
 
-
-<!-- ALERT -->
-<?php
-    if (isset($_SESSION['alert'])) {
-        $alertType = $_SESSION['alert']['type'];
-        $alertMessage = $_SESSION['alert']['message'];
-        ?>
-        <div role="alert" class="alert alert-<?php echo $alertType; ?>">
-            <?php if ($alertType === 'success'): ?>
-                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-            <?php else: ?>
-                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-            <?php endif; ?>
-            <span><?php echo $alertMessage; ?></span>
-        </div>
-        <?php
-        // Clear the alert from the session
-        unset($_SESSION['alert']);
-    }
-?>
-<!-- END ALERT -->
-
 <!-- Page content here -->
 <div class="grid items-center ps-[20rem] pt-[7rem]">
     <span class="flex items-center justify-between mb-5">
-        <!-- ADD INFORMATION -->
+        <!-- ADD EVENT -->
         <div class="flex gap-2 items-center justify-center">
             <h1 class="text-2xl font-bold">Event</h1>
             <button class="btn btn-sm text-white mt-1" onclick="document.getElementById('add_event_modal').showModal()"><i class="bx bx-plus-circle"></i></button>
         </div>
-        <!-- END ADD INFORMATION -->
-
-        <!-- SEARCH -->
-        <label class="input input-bordered flex items-center gap-2 bg-white xl:me-16 me:14 shadow-md text-black">
-            <input type="text" class="grow" placeholder="Search" />
-            <i class="bx bx-search"></i>
-        </label>
-        <!-- END SEARCH -->
+        <!-- END ADD EVENT -->
     </span>
     <div class="overflow-x-scroll max-w-[95rem] max-h-[48rem] border rounded-box shadow-md me-10">
         <table class="table">
@@ -129,14 +100,14 @@
     <!-- END MODAL ADD -->
 
     <!-- MODAL UPDATE -->
-    <dialog id="update_modal" class="modal">
-        <form id="updateForm" class="mb-10 border w-[40rem] shadow-md py-5 px-10 mt-4 rounded-box bg-gray-100 modal-box text-black" enctype="multipart/form-data" method="POST">
-            <h1 class="text-2xl font-bold text-black">Update information</h1>
+    <dialog id="update_eventt_modal" class="modal">
+        <form id="updateEventForm" class="mb-10 border w-[40rem] shadow-md py-5 px-10 mt-4 rounded-box bg-gray-100 modal-box text-black" method="POST">
+            <h1 class="text-2xl font-bold text-black">Update Fasilitas</h1>
             <div id="formContent">
                 <!-- NANTI BERISI CONTENT -->
             </div>
             <div class="flex justify-end mt-4">
-                <button class="btn text-white w-36" onclick="updateEvent()">Save</button>
+                <button class="btn text-white w-36" onclick="updateEventt()">Save</button>
             </div>
         </form>
         <form method="dialog" class="modal-backdrop">
@@ -171,8 +142,7 @@
     // UPDATE EVENT
     function openUpdateModal(eventId) {
         updateEventId = eventId;
-
-        document.getElementById('update_modal').showModal();
+        document.getElementById('update_eventt_modal').showModal();
         
         // Use AJAX to load the form content
         fetch('./eventCRUD/edit.php?id=' + eventId)
@@ -182,32 +152,30 @@
             })
             .catch(error => console.error('Error:', error));
     }
+
     
-    function updateEvent(){
-
+    function updateEventt(ev){
         if(updateEventId){
-            let form = document.getElementById('updateForm');
+            let form = document.getElementById('updateEventForm');
             let formData = new FormData(form);
+            formData.append('id', updateEventId);
 
-            formData.append('event_id', updateEventId);
-
-            console.log(updateEventId);
-
-            // fetch('./eventCRUD/update.php', {
-            //     method: 'POST',
-            //     body: formData
-            // })
-            //     .then(response => response.json())
-            //     .then(data => {
-            //         if(data.success){
-            //             location.reload();
-            //         } else {
-            //             alert(data.message);
-            //         }
-            //     })
-            //     .catch(error => console.error('Error:', error));
+            fetch('./eventCRUD/update.php', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if(data.success){
+                        window.location.reload();
+                    } else {
+                        window.location.reload();
+                    }
+                })
+                .catch(error => console.error('Error:', error));
         }
     }
+
 
     // DELETE EVENT 
     function modalDelete(eventId){

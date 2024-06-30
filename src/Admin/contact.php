@@ -21,7 +21,7 @@
                     <!-- SEARCH -->
                     <form action="" method="GET" class="flex items-center">
                         <label class="input input-bordered flex items-center gap-2 bg-white me-10 shadow-md text-black">
-                            <input type="text" name="search" class="grow" placeholder="Search by username or number" value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>" />
+                            <input type="text" name="search" class="grow" placeholder="Search by username" value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>" />
                             <button type="submit"><i class="bx bx-search"></i></button>
                         </label>
                     </form>

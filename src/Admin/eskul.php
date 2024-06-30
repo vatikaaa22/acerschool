@@ -159,7 +159,6 @@
             return;
         }
 
-        console.log(formData);
         fetch('./eskulCRUD/update.php', {
             method: 'POST',
             body: formData
@@ -175,7 +174,7 @@
             if (data.includes("Error")) {
                 window.location.reload();
             } else {
-                toastr.error("Terjadi kesalahan");
+                window.location.reload();
             }
         })
         .catch(error => {

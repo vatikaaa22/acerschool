@@ -75,7 +75,7 @@ require_once '../layout/_top.php';
                         while($data = mysqli_fetch_array($query_events)){
                     ?>
                     <span class="flex gap-2">
-                        <p class="text-center"><span class="font-semibold">[ <?php echo $data['event_date'] ?> ] </span> - <?php echo $data["name"]?></p>
+                        <p class="text-center"><span class="font-semibold">[ <?php echo date('d-m-Y', strtotime($data['event_date'])); ?> ] </span> - <?php echo $data["name"]?></p>
                     </span>
                     <?php
                         }

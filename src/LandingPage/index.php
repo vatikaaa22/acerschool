@@ -13,7 +13,7 @@ require_once '../layout/_top.php';
         </div>
     </div>
 
-    <div class="w-full max-h-screen" id="berita">
+    <div class="w-full min-[10rem]" id="berita">
         <h1 class="text-white text-center font-bold text-3xl py-5 ">&mdash;  Berita dan Acara &mdash; </h1>
 
         <div class="flex items-center justify-center pt-5">

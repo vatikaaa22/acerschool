@@ -27,7 +27,7 @@
         ?>
 
         <span class="flex">
-            <div class="card card-side w-full bg-base-100 shadow-xl" data-aos="fade-in">
+            <div class="card card-side w-full bg-gray-950 shadow-xl text-white" data-aos="fade-in">
             <img src="../Admin/uploads/<?php echo $data["image"]?>"  class="rounded-l-lg shadow-2xl max-w-lg max-h-[20rem]">
                 <div class="card-body">
                     <small>Berita Terkini</small>

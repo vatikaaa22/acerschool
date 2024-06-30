@@ -47,7 +47,7 @@ if (isset($_FILES['img']) && $_FILES['img']['error'] == 0) {
 // Update database
 $sql = "UPDATE eskuls SET 
         title = '$title', 
-        img = " . ($new_image ? "'$new_image'" : "NULL") . ", 
+        img = " . ($new_image ? "'$new_image'" : "NULL") . "
         WHERE eskul_id = '$id'";
 
 $hasil = mysqli_query($connection, $sql);

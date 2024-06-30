@@ -4,28 +4,6 @@
     include '../Layout/Admin/_top.php';
 ?>
 
-
-<!-- ALERT -->
-<?php
-    if (isset($_SESSION['alert'])) {
-        $alertType = $_SESSION['alert']['type'];
-        $alertMessage = $_SESSION['alert']['message'];
-        ?>
-        <div role="alert" class="alert alert-<?php echo $alertType; ?>">
-            <?php if ($alertType === 'success'): ?>
-                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-            <?php else: ?>
-                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-            <?php endif; ?>
-            <span><?php echo $alertMessage; ?></span>
-        </div>
-        <?php
-        // Clear the alert from the session
-        unset($_SESSION['alert']);
-    }
-?>
-<!-- END ALERT -->
-
 <!-- Page content here -->
 <div class="grid items-center ps-[20rem] pt-[7rem]">
     <span class="flex items-center justify-between mb-5">
@@ -35,13 +13,6 @@
             <button class="btn btn-sm text-white mt-1" onclick="document.getElementById('add_modal').showModal()"><i class="bx bx-plus-circle"></i></button>
         </div>
         <!-- END ADD INFORMATION -->
-
-        <!-- SEARCH -->
-        <label class="input input-bordered flex items-center gap-2 bg-white xl:me-16 me:14 shadow-md text-black">
-            <input type="text" class="grow" placeholder="Search" />
-            <i class="bx bx-search"></i>
-        </label>
-        <!-- END SEARCH -->
     </span>
     <div class="overflow-x-scroll max-w-[95rem] max-h-[48rem] border rounded-box shadow-md me-10">
         <table class="table">
@@ -109,15 +80,15 @@
                     <h1 class="text-2xl font-bold text-black">Add Facility</h1>
         
                     <span class="grid gap-2 mt-5">
-                            <input type="file" name="image" class="file-input file-input-bordered file-input-sm w-full border bg-white" required/>
-                            <div class="flex flex-col">
-                                <label for="name" class="text-lg font-semibold text-black">Name</label>
-                                <input type="text" name="name" id="name" class="input input-bordered bg-white" placeholder="Enter Information name" />
-                            </div>
-                            <div class="flex flex-col">
-                                <label for="description" class="text-lg font-semibold text-black">Description</label>
-                                <textarea name="description" id="description" class="input input-bordered bg-white h-40 py-1" placeholder="Enter description"></textarea>
-                            </div>
+                        <input type="file" name="image" class="file-input file-input-bordered file-input-sm w-full border bg-white" required/>
+                        <div class="flex flex-col">
+                            <label for="name" class="text-lg font-semibold text-black">Name</label>
+                            <input type="text" name="name" id="name" class="input input-bordered bg-white" placeholder="Enter Information name" />
+                        </div>
+                        <div class="flex flex-col">
+                            <label for="description" class="text-lg font-semibold text-black">Description</label>
+                            <textarea name="description" id="description" class="input input-bordered bg-white h-40 py-1" placeholder="Enter description"></textarea>
+                        </div>
                     </span>
                     <div class="flex justify-end mt-4">
                         <button class="btn text-white w-36" type="sumbit">Save</button>
@@ -131,14 +102,14 @@
     <!-- END MODAL ADD -->
 
     <!-- MODAL UPDATE -->
-    <dialog id="update_modal" class="modal">
-        <form id="updateForm" class="mb-10 border w-[40rem] shadow-md py-5 px-10 mt-4 rounded-box bg-gray-100 modal-box text-black" enctype="multipart/form-data" method="POST">
-            <h1 class="text-2xl font-bold text-black">Update information</h1>
+    <dialog id="update_fasilitas_modal" class="modal">
+        <form id="updateFascilityForm" class="mb-10 border w-[40rem] shadow-md py-5 px-10 mt-4 rounded-box bg-gray-100 modal-box text-black" enctype="multipart/form-data" method="POST">
+            <h1 class="text-2xl font-bold text-black">Update Fasilitas</h1>
             <div id="formContent">
                 <!-- NANTI BERISI CONTENT -->
             </div>
             <div class="flex justify-end mt-4">
-                <button class="btn text-white w-36">Save</button>
+                <button class="btn text-white w-36" onclick="updateFasility()">Save</button>
             </div>
         </form>
         <form method="dialog" class="modal-backdrop">
@@ -166,12 +137,15 @@
 </div>
 
 <script>
+    let updateFacilityId;
+
     // UPDATE
     function openUpdateModal(facilityId) {
-        document.getElementById('update_modal').showModal();
+        document.getElementById('update_fasilitas_modal').showModal();
+        updateFacilityId = facilityId;
         
         // Use AJAX to load the form content
-        fetch('./informationCRUD/edit.php?id=' + facilityId)
+        fetch('./fasilitasCRUD/edit.php?id=' + facilityId)
             .then(response => response.text())
             .then(data => {
                 document.getElementById('formContent').innerHTML = data;
@@ -179,8 +153,41 @@
             .catch(error => console.error('Error:', error));
     }
 
+    function updateFasility() {
+        const form = document.getElementById('updateFascilityForm');
+        const formData = new FormData(form);
+        formData.append('id', updateFacilityId);
+
+        if (typeof updateFacilityId === 'undefined' || updateFacilityId === null) {
+            console.error('updateFacilityId tidak didefinisikan');
+            return;
+        }
+
+        fetch('./fasilitasCRUD/update.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok: ' + response.statusText);
+            }
+            return response.text();
+        })
+        .then(data => {
+            console.log(data);
+            if (data.includes("Error")) {
+                window.location.reload();
+            } else {
+                toastr.error("Terjadi kesalahan");
+            }
+        })
+        .catch(error => {
+            toastr.error("Error");
+        });
+    }
+
     // DELETE
-    let currentFacilityId = null;
+    let currentFacilityId;
 
     function onDelete(facilityId) {
         currentFacilityId = facilityId;
