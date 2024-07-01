@@ -73,6 +73,12 @@
                                 </a>
                             </li>
                             <li>
+                                <a href="../Admin/service.php" class="btn border-none hover:text-white <?php echo isActive('Admin/service.php'); ?>">
+                                    <i class='bx bx-message-square-detail'></i>
+                                    Services
+                                </a>
+                            </li>
+                            <li>
                                 <a href="../Admin/profile.php" class="btn border-none hover:text-white <?php echo isActive('Admin/profile.php'); ?>">
                                     <i class='bx bx-user'></i>
                                     Profile
