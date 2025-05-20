@@ -2,6 +2,6 @@
 $dbhost = "localhost";
 $dbusername = "root";
 $dbpassword = "";
-$dbname = "laravel_myschools";
+$dbname = "laravel_DA";
 
 $connection = mysqli_connect($dbhost, $dbusername, $dbpassword,  $dbname);
